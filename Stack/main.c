@@ -6,10 +6,10 @@ typedef struct NODEDATA {
 	char data[20]; 
 } nodeData;
 
-typedef struct SINGLE_LINKED_LIST {
+typedef struct STACK_NODE {
 	nodeData* pData;
-	struct singleLinkedList* pNextNode;
-} singleLinkedList;
+	struct STACK_NODE* pNextNode;
+} stackNode;
 
 nodeData* createNodeData()
 {
@@ -18,10 +18,9 @@ nodeData* createNodeData()
 	return pData;
 }
 
-
-singleLinkedList* createNode(char* data)
+stackNode* createNode(char* data)
 {
-	singleLinkedList* pNewNode = (singleLinkedList*)calloc(1, sizeof(singleLinkedList));
+	stackNode* pNewNode = (stackNode*)calloc(1, sizeof(stackNode));
 	if ( pNewNode == NULL ) {
 		printf("New Node HEAD Memory Allocation FAIL\n");
 		return NULL;
@@ -39,23 +38,23 @@ singleLinkedList* createNode(char* data)
 	return pNewNode;
 }
 
-singleLinkedList* createHead()
+stackNode* createHead()
 {
 	// Caller Checks if pointer is NULL
-	singleLinkedList* pHead = createNode("HEAD");
+	stackNode* pHead = createNode("HEAD");
 	return pHead;
 }
 
 
-singleLinkedList* createTail()
+stackNode* createTail()
 {
 	// Caller Checks if pointer is NULL
-	singleLinkedList* pTail= createNode("TAIL");
+	stackNode* pTail= createNode("TAIL");
 	return pTail;
 }
 
-singleLinkedList* g_pHead; 
-singleLinkedList* g_pTail;
+stackNode* g_pHead; 
+stackNode* g_pTail;
 
 int initializeStack()
 {
@@ -79,10 +78,10 @@ int initializeStack()
 
 void releaseStack()
 {
-	singleLinkedList* pTmpNode = g_pHead;	
+	stackNode* pTmpNode = g_pHead;	
 
 	while( pTmpNode ) {
-		singleLinkedList* pTmpNextNode = NULL;	
+		stackNode* pTmpNextNode = NULL;	
 		if ( pTmpNode->pNextNode ) {
 			pTmpNextNode = pTmpNode->pNextNode;
 		}
@@ -91,7 +90,7 @@ void releaseStack()
 	}
 }
 
-void releaseNode(singleLinkedList* pNode)
+void releaseNode(stackNode* pNode)
 {
 	if ( pNode == NULL ) {
 		return;
@@ -105,7 +104,7 @@ void releaseNode(singleLinkedList* pNode)
 
 int pushData(char* data)
 {
-	singleLinkedList* pNewNode= createNode(data);
+	stackNode* pNewNode= createNode(data);
 	if ( pNewNode == NULL ) {
 		printf("Creaete New NODE FAIL\n");
 		return -1;
@@ -125,7 +124,7 @@ int popData(char* popedString)
 		return -1;
 	}
 
-	singleLinkedList* pPopedNode = g_pHead->pNextNode; 
+	stackNode* pPopedNode = g_pHead->pNextNode; 
 	g_pHead->pNextNode = pPopedNode->pNextNode;
 
 	strcpy(popedString, pPopedNode->pData->data);
@@ -138,11 +137,11 @@ void showAllData()
 {
 	printf("\n");
 
-	singleLinkedList* pTmpNode = g_pHead;	
+	stackNode* pTmpNode = g_pHead;	
 
 	while( pTmpNode ) {
 		printf("Node Data : [%s]\n", pTmpNode->pData->data);
-		singleLinkedList* pTmpNextNode = NULL;	
+		stackNode* pTmpNextNode = NULL;	
 		if ( pTmpNode->pNextNode ) {
 			pTmpNextNode = pTmpNode->pNextNode;
 		}
