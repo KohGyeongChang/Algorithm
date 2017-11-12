@@ -94,6 +94,15 @@ void releaseNode(queueLinkedList* pNode)
 	free(pNode);
 }
 
+int isQueueEmpty()
+{
+	if ( g_pHead->pNextNode == g_pTail ) {
+		return 1;
+	}
+
+	return 0;
+}
+
 int pushData(char* data)
 {
 	queueLinkedList* pNewNode= createNode(data);
