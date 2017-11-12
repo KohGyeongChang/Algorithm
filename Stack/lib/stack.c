@@ -94,6 +94,15 @@ void releaseNode(stackNode* pNode)
 	free(pNode);
 }
 
+int isStackEmpty()
+{
+	if ( g_pHead->pNextNode == g_pTail ) {
+		return 1;
+	}
+
+	return 0;
+}
+
 int pushData(char* data)
 {
 	stackNode* pNewNode= createNode(data);
