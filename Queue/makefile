@@ -1,21 +1,26 @@
+.SUFFIXES = .c .o
 DEBUG = -g -DDEBUGINFO
 GCC = gcc
 CFLAGS = -O2 -Wall $(DEBUG)
-OBJECTS = main.o queue.o
-EXE:testOut
+OBJECTS = main.o 
+INC = -L./lib -lBCqueue
+TARGET = testQueue
+
+all : QueueLib $(TARGET)
+
+QueueLib:
+	cd ./lib;$(MAKE)
+
+$(TARGET): $(OBJECTS)
+	$(GCC) -o $(TARGET) $(OBJECTS) $(INC)
 
 main.o:main.c
-	$(GCC) $(CFLAGS) -c main.c
-
-queue.o:queue.c
-	$(GCC) $(CFLAGS) -c queue.c
-
-testOut: $(OBJECTS)
-	$(GCC) $(OBJECTS) -o testOut
+	$(GCC) $(CFLAGS) -c main.c $(INC)
 
 clean:
-	rm -f *.o testOut
+	cd ./lib;$(MAKE) clean
+	rm -f $(OBJECTS) $(TARGET)
 
 run:
-	./testOut
+	./$(TARGET)
 
