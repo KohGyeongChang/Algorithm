@@ -1,21 +1,26 @@
+.SUFFIXES = .c .o
 DEBUG = -g -DDEBUGINFO
 GCC = gcc
 CFLAGS = -O2 -Wall $(DEBUG)
-OBJECTS = main.o stack.o
-EXE:testOut
+OBJECTS = main.o 
+TARGET = testStack
+INC = -L./lib -lBCstack
+
+all : StackLib $(TARGET) 
+
+StackLib : 
+	cd ./lib;$(MAKE)
+
+$(TARGET): $(OBJECTS)
+	$(GCC) -o $(TARGET) $(OBJECTS) $(INC)
 
 main.o:main.c
-	$(GCC) $(CFLAGS) -c main.c
-
-stack.o:stack.c
-	$(GCC) $(CFLAGS) -c stack.c
-
-testOut: $(OBJECTS)
-	$(GCC) $(OBJECTS) -o testOut
+	$(GCC) $(CFLAGS) -c main.c $(INC)
 
 clean:
-	rm -f *.o testOut
+	cd ./lib;$(MAKE) clean
+	rm -f $(OBJECTS) $(TARGET)
 
 run:
-	./testOut
+	./$(TARGET)
 
