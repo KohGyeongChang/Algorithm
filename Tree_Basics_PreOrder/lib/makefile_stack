@@ -2,18 +2,17 @@
 DEBUG = -g -DDEBUGINFO
 GCC = gcc
 CFLAGS = -fPIC -O2 -Wall $(DEBUG)
-OBJECTS = tree_preorder.o
+OBJECTS = stack.o
 AR = ar
 ARFLAGS = rc
-INC = -L./ -lBCtreestack
-TARGET = libBCtreepreorder.a
+TARGET = libBCtreestack.a
 
 
 $(TARGET): $(OBJECTS)
 	$(AR) $(ARFLAGS) $(TARGET) $(OBJECTS) 
 
-tree_preorder.o:tree_preorder.c
-	$(GCC) $(CFLAGS) -c tree_preorder.c $(INC)
+stack.o:stack.c
+	$(GCC) $(CFLAGS) -c stack.c
 
 clean:
 	rm -f $(OBJECTS) $(TARGET)

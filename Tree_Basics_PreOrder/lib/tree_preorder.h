@@ -2,7 +2,7 @@
 #define TREE_PREORDER_H
 
 typedef struct TREENODEDATA {
-	char data[20];
+	char data;
 }treeNodeData;
 
 typedef struct TREENODE {

@@ -3,10 +3,13 @@ DEBUG = -g -DDEBUGINFO
 GCC = gcc
 CFLAGS = -O2 -Wall $(DEBUG)
 OBJECTS = main.o 
-TARGET = testTreeBasicPreOrder
-INC = -L./lib -lBCtreepreorder -L../Stack/lib -lBCstack
+TARGET = testTreePreOrder
+INC = -L./lib -lBCtreepreorder -lBCtreestack
 
-all : TreePreOrderLib $(TARGET) 
+all : TreeStackLib TreePreOrderLib $(TARGET) 
+
+TreeStackLib :
+	cd ./lib;$(MAKE) -f makefile_stack
 
 TreePreOrderLib :
 	cd ./lib;$(MAKE)
@@ -19,6 +22,7 @@ main.o:main.c
 
 clean:
 	cd ./lib;$(MAKE) clean
+	cd ./lib;$(MAKE) -f makefile_stack clean
 	rm -f $(OBJECTS) $(TARGET)
 
 run:
