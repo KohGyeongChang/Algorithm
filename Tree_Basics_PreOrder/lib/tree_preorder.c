@@ -1,15 +1,6 @@
 #include "tree_preorder.h"
 #include "stack.h"
 
-/*
-extern stackNode* createNode(char* data);
-extern stackNode* createHead();
-extern stackNode* createTail();
-extern stackNode* g_pHead;
-extern stackNode* g_pTail;
-extern void releaseNode(stackNode* pNode);
-*/
-
 extern int initializeStack();
 extern void releaseStack();
 extern int isStackEmpty();
@@ -124,10 +115,10 @@ void makeTree()
 
 void showNodeData(treeNode *pNode)
 {
-	printf("Tree Node Data [%c]\n", pNode->pData->data);
+	printf("[%c] -> ", pNode->pData->data);
 }
 
-void traverseTree()
+void traverseTree_PreOrder()
 {
 	treeNode* pTreeNode = g_pTreeHead->left;
 
@@ -147,6 +138,7 @@ void traverseTree()
 		}
 		
 	}
+	printf("\n\n");
 }
 
 

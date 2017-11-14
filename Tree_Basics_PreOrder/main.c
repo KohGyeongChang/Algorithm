@@ -5,7 +5,7 @@
 
 extern void initializeTree();
 extern void makeTree();
-extern int traverseTree();
+extern int traverseTree_PreOrder();
 extern void showNodeData(treeNode*);
 
 int main()
@@ -14,6 +14,6 @@ int main()
 
 	initializeTree();
 	makeTree();
-	traverseTree();
+	traverseTree_PreOrder();
 	return 0;
 }
