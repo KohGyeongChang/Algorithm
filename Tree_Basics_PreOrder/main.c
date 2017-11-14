@@ -10,8 +10,6 @@ extern void showNodeData(treeNode*);
 
 int main()
 {
-	printf("Tree PreOrder Test\n");
-
 	initializeTree();
 	makeTree();
 	traverseTree_PreOrder();
