@@ -142,29 +142,4 @@ void traverseTree_PreOrder()
 	printf("\n\n");
 }
 
-/*
-void traverseTree_PreOrder()
-{
-	printf("\nTree PreOrder Traverse Test\n");
-	treeNode* pTreeNode = g_pTreeHead->left;
-
-	pushData(pTreeNode);
-
-	while( !isStackEmpty() ) {
-
-		pTreeNode = popData();
-		showNodeData(pTreeNode);
-
-		if ( pTreeNode->right != g_pTreeTail ) {
-			pushData(pTreeNode->right);
-		}
-
-		if ( pTreeNode->left!= g_pTreeTail ) {
-			pushData(pTreeNode->left);
-		}
-		
-	}
-	printf("\n\n");
-}
-*/
 
