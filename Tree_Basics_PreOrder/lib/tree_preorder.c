@@ -131,7 +131,7 @@ void traverseTree()
 {
 	treeNode* pTreeNode = g_pTreeHead->left;
 
-	showNodeData(pTreeNode);
+	pushData(pTreeNode);
 
 	while( !isStackEmpty() ) {
 

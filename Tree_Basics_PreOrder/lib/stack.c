@@ -5,7 +5,7 @@
 #include "tree_preorder.h"
 
 
-stackNode* createNode(treeNode* pNode)
+stackNode* createNode(treeNode* pTreeNode)
 {
 	stackNode* pNewNode = (stackNode*)calloc(1, sizeof(stackNode));
 	if ( pNewNode == NULL ) {
@@ -13,12 +13,13 @@ stackNode* createNode(treeNode* pNode)
 		return NULL;
 	}
 
+	/*
 	if ( pNode == NULL ) {
 		printf("Tree Node NULL\n");
 		return NULL;
 	}
+	*/
 
-	treeNode* pTreeNode = pNode; 
 	pNewNode->pTreeNode = pTreeNode;
 
 	return pNewNode;
@@ -82,12 +83,6 @@ void releaseNode(stackNode* pNode)
 		return;
 	}
 
-	/*
-	if ( pNode->pData ) {
-		free(pNode->pData);
-	}
-	*/
-
 	free(pNode);
 }
 
@@ -100,9 +95,9 @@ int isStackEmpty()
 	return 0;
 }
 
-int pushData(treeNode* pNode)
+int pushData(treeNode* pTreeNode)
 {
-	stackNode* pNewNode= createNode(pNode);
+	stackNode* pNewNode= createNode(pTreeNode);
 	if ( pNewNode == NULL ) {
 		printf("Creaete New NODE FAIL\n");
 		return -1;
@@ -125,9 +120,10 @@ treeNode* popData()
 	stackNode* pPopedNode = g_pHead->pNextNode; 
 	g_pHead->pNextNode = pPopedNode->pNextNode;
 
+	treeNode* pTreeNode = pPopedNode->pTreeNode;
 	releaseNode(pPopedNode);
 
-	return pPopedNode->pTreeNode;
+	return pTreeNode;
 }
 
 void showAllData()
