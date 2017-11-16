@@ -3,7 +3,7 @@ DEBUG = -g -DDEBUGINFO
 GCC = gcc
 CFLAGS = -O2 -Wall $(DEBUG)
 OBJECTS = main.o 
-TARGET = testTreeInOrder
+TARGET = testTreePostOrder
 INC = -L./lib -lBCtreepostorder -lBCtreestack
 
 all : TreeStackLib TreePostOrderLib $(TARGET) 

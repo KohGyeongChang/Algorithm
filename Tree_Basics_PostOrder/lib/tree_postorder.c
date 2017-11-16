@@ -122,21 +122,40 @@ void traverseTree_PostOrder()
 {
 	printf("\nTree PostOrder Traverse Test\n");
 	
-	treeNode* pTreeNode 	= g_pTreeHead->left;
-	treeNode* pTreeVisited	= g_pTreeTail;
-	treeNode* pTreePushed 	= g_pTreeTail;
+	treeNode* pTreeNode 			= g_pTreeHead->left;
+	treeNode* pTreeAlreadyVisited	= g_pTreeTail;
+	treeNode* pTreeAlreadyPut		= g_pTreeTail;
 
 	while( 1 ) {
 
-		while( pTreeNode != g_pTreeTail ) {
-			pushData(pTreeNode);
+		while( pTreeNode != g_pTreeTail && pTreeNode != pTreeAlreadyVisited ) {
+			if ( pTreeNode != pTreeAlreadyPut ) {
+				pushData(pTreeNode);
+			}
+
+			if ( pTreeNode->right != g_pTreeTail ) {
+				pushData(pTreeNode->right);
+			}
+
+			if ( pTreeNode->left != g_pTreeTail ) {
+				pushData(pTreeNode->left);
+			}
+
+			pTreeAlreadyPut = pTreeNode->left;
 			pTreeNode = pTreeNode->left;
 		}		
 
 		if ( !isStackEmpty() ) {
 			pTreeNode = popData();
-			showNodeData(pTreeNode);
-			pTreeNode = pTreeNode->right;
+			if ( pTreeNode->left != g_pTreeTail && pTreeNode->left != pTreeAlreadyVisited && pTreeNode->right == g_pTreeTail ) {
+				pushData(pTreeNode);
+				pTreeNode = pTreeNode->left;
+			}
+
+			if ( pTreeNode->right == g_pTreeTail || pTreeNode->right == pTreeAlreadyVisited ) {
+				showNodeData(pTreeNode);
+				pTreeAlreadyVisited = pTreeNode;
+			}
 		}
 		else {
 			break;
