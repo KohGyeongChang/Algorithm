@@ -7,7 +7,6 @@ typedef struct TREENODEDATA {
 
 typedef struct TREENODE {
 	treeNodeData* pData;
-	int balance; // Only For AVL Tree
 	struct TREENODE* left;
 	struct TREENODE* right;
 } treeNode;
