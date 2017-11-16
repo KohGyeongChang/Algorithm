@@ -1,9 +1,9 @@
 #include "../../Tree_CommLib/Stack/stack.h"
 
-extern int initializeStack();
+extern bool initializeStack();
 extern void releaseStack();
-extern int isStackEmpty();
-extern int pushData(treeNode* data);
+extern bool stackHasData();
+extern bool pushData(treeNode* data);
 extern treeNode* popData();
 extern void showAllData();
 
@@ -144,7 +144,7 @@ void traverseTree_PostOrder()
 			pTreeNode = pTreeNode->left;
 		}		
 
-		if ( !isStackEmpty() ) {
+		if ( stackHasData() ) {
 			pTreeNode = popData();
 			if ( pTreeNode->left != g_pTreeTail && pTreeNode->left != pTreeAlreadyVisited && pTreeNode->right == g_pTreeTail ) {
 				pushData(pTreeNode);
