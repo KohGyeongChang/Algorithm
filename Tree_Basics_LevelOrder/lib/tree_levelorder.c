@@ -1,12 +1,11 @@
 #include "../../Tree_CommLib/Queue/queue.h"
 
-extern int initializeQueue();
+extern bool initializeQueue();
 extern void releaseQueue();
-extern int isQueueEmpty();
-extern int pushData(treeNode* data);
+extern bool queueHasData();
+extern bool pushData(treeNode* data);
 extern treeNode* popData();
 extern void showAllData();
-extern int isQueueEmpty();
 
 treeNode* g_pTreeHead;
 treeNode* g_pTreeTail;
@@ -125,7 +124,7 @@ void traverseTree_LevelOrder()
 	treeNode* pTreeNode = g_pTreeHead->left;
 	pushData(pTreeNode);
 
-	while( !isQueueEmpty()) {
+	while( queueHasData()) {
 
 		pTreeNode = popData();
 		showNodeData(pTreeNode);
