@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "stack.h"
 
 
@@ -42,24 +43,24 @@ stackNode* createTail()
 stackNode* g_pHead; 
 stackNode* g_pTail;
 
-int initializeStack()
+bool initializeStack()
 {
 	g_pHead = createHead();
 	if ( g_pHead == NULL ) {
 		printf("CreateHead FAIL\n"); 
-		return -1;
+		return false;
 	}
 
 	g_pTail = createTail();
 	if ( g_pTail == NULL ) {
 		printf("CreateTail FAIL\n"); 
-		return -1;
+		return false;
 	}
 
 	g_pHead->pNextNode = g_pTail;
 	g_pTail->pNextNode = NULL;
 
-	return 0;
+	return true;
 }
 
 void releaseStack()
@@ -85,28 +86,27 @@ void releaseNode(stackNode* pNode)
 	free(pNode);
 }
 
-int isStackEmpty()
+bool stackHasData()
 {
 	if ( g_pHead->pNextNode == g_pTail ) {
-		return 1;
+		return false;
 	}
 
-	return 0;
+	return true; 
 }
 
-int pushData(treeNode* pTreeNode)
+bool pushData(treeNode* pTreeNode)
 {
 	stackNode* pNewNode= createNode(pTreeNode);
 	if ( pNewNode == NULL ) {
 		printf("Creaete New NODE FAIL\n");
-		return -1;
+		return false;
 	}
 
 	pNewNode->pNextNode = g_pHead->pNextNode;
 	g_pHead->pNextNode = pNewNode;
 
-	return 0;
-
+	return true;
 }
 
 treeNode* popData()
