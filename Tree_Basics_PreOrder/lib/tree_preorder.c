@@ -1,5 +1,4 @@
-#include "tree_preorder.h"
-#include "stack.h"
+#include "../../Tree_CommLib/Stack/stack.h"
 
 extern int initializeStack();
 extern void releaseStack();

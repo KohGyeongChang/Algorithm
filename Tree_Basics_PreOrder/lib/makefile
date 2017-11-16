@@ -5,7 +5,7 @@ CFLAGS = -fPIC -O2 -Wall $(DEBUG)
 OBJECTS = tree_preorder.o
 AR = ar
 ARFLAGS = rc
-INC = -L./ -lBCtreestack
+INC = -L../../Tree_CommLib/Stack -lBCtreestack
 TARGET = libBCtreepreorder.a
 
 
