@@ -4,12 +4,12 @@ GCC = gcc
 CFLAGS = -O2 -Wall $(DEBUG)
 OBJECTS = main.o 
 TARGET = testTreePostOrder
-INC = -L./lib -lBCtreepostorder -lBCtreestack
+INC = -L./lib -lBCtreepostorder -L../Tree_CommLib/Stack -lBCtreestack
 
 all : TreeStackLib TreePostOrderLib $(TARGET) 
 
 TreeStackLib :
-	cd ./lib;$(MAKE) -f makefile_stack
+	cd ../Tree_CommLib/Stack;$(MAKE) 
 
 TreePostOrderLib :
 	cd ./lib;$(MAKE)
@@ -22,7 +22,7 @@ main.o:main.c
 
 clean:
 	cd ./lib;$(MAKE) clean
-	cd ./lib;$(MAKE) -f makefile_stack clean
+	cd ../Tree_CommLib/Stack;$(MAKE) clean
 	rm -f $(OBJECTS) $(TARGET)
 
 run:
