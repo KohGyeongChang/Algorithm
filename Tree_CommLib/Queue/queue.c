@@ -36,24 +36,24 @@ queueNode* createTail()
 queueNode* g_pHead; 
 queueNode* g_pTail;
 
-int initializeQueue()
+bool initializeQueue()
 {
 	g_pHead = createHead();
 	if ( g_pHead == NULL ) {
 		printf("CreateHead FAIL\n"); 
-		return -1;
+		return false;
 	}
 
 	g_pTail = createTail();
 	if ( g_pTail == NULL ) {
 		printf("CreateTail FAIL\n"); 
-		return -1;
+		return false;
 	}
 
 	g_pHead->pNextNode = g_pTail;
 	g_pTail->pNextNode = NULL;
 
-	return 0;
+	return true;
 }
 
 void releaseQueue()
@@ -79,21 +79,21 @@ void releaseNode(queueNode* pNode)
 	free(pNode);
 }
 
-int isQueueEmpty()
+bool queueHasData()
 {
 	if ( g_pHead->pNextNode == g_pTail ) {
-		return 1;
+		return false;
 	}
 
-	return 0;
+	return true;
 }
 
-int pushData(treeNode* pTreeNode)
+bool pushData(treeNode* pTreeNode)
 {
 	queueNode* pNewNode= createNode(pTreeNode);
 	if ( pNewNode == NULL ) {
 		printf("Creaete New NODE FAIL\n");
-		return -1;
+		return false;
 	}
 
 	queueNode* pTmpNode = g_pHead;
@@ -109,7 +109,7 @@ int pushData(treeNode* pTreeNode)
 		pTmpNode = pTmpNode->pNextNode;
 	}
 
-	return 0;
+	return true;
 
 }
 
