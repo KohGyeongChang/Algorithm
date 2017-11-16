@@ -1,9 +1,9 @@
 #include "../../Tree_CommLib/Stack/stack.h"
 
-extern int initializeStack();
+extern bool initializeStack();
 extern void releaseStack();
-extern int isStackEmpty();
-extern int pushData(treeNode* data);
+extern bool stackHasData();
+extern bool pushData(treeNode* data);
 extern treeNode* popData();
 extern void showAllData();
 
@@ -124,7 +124,7 @@ void traverseTree_PreOrder()
 
 	pushData(pTreeNode);
 
-	while( !isStackEmpty() ) {
+	while( stackHasData() ) {
 
 		pTreeNode = popData();
 		showNodeData(pTreeNode);
