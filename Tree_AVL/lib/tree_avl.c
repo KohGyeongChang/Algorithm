@@ -1,5 +1,8 @@
 #include "../../Tree_CommLib/Queue/queue.h"
 
+#define RR 1
+#define LL 0
+
 extern bool initializeQueue();
 extern void releaseQueue();
 extern bool queueHasData();
@@ -38,9 +41,9 @@ treeNodeData* createTreeNodeData()
 	return pData;
 }
 
-bool needBalance() 
+int needBalance() 
 {
-	bool bRet = false;
+	int nRet = 0;
 	treeNode* pTreeNode;
 	pTreeNode = g_pTreeHead->right;
 
@@ -52,9 +55,16 @@ bool needBalance()
 
 		pTreeNode = popData();
 
-		if ( pTreeNode->balance > 1 || pTreeNode->balance < -1 ) {
-			bRet = true;
+		if ( pTreeNode->balance > 1 ) {
+		
+			nRet = LL;
 			break;
+		}
+		else if ( pTreeNode->balance < -1 ) {
+
+			nRet = RR;
+			break;
+
 		}
 
 		if ( pTreeNode->left != g_pTreeHead ) {
@@ -68,11 +78,13 @@ bool needBalance()
 
 	releaseQueue();
 
-	return bRet;
+	return nRet;
 }
 
 void AVR_RR() 
 {
+	printf("Applying AVL_RR\n");
+
 	g_pParent = g_pGrand->right;
 	g_pChild = g_pParent->right;
 
@@ -83,13 +95,33 @@ void AVR_RR()
 		g_pGrand->right = g_pTreeHead;
 	}
 
-	g_pBig->balance++;
+	g_pBig->balance--;
 	g_pParent->balance = 0;
 	g_pGrand->balance = 0;
 	g_pChild->balance = 0;
 	
 }
 
+void AVR_LL() 
+{
+	printf("Applying AVL_LL\n");
+
+	g_pParent = g_pGrand->left;
+	g_pChild = g_pParent->left;
+
+	if ( g_pGrand->balance == 2 ) {
+		g_pBig->left= g_pParent;
+		g_pParent->right= g_pGrand;
+		g_pGrand->left = g_pTreeHead;
+		g_pGrand->right = g_pTreeHead;
+	}
+
+	g_pBig->balance++;
+	g_pParent->balance = 0;
+	g_pGrand->balance = 0;
+	g_pChild->balance = 0;
+	
+}
 treeNode* createNewAVLTreeNode(int data)
 {
 	treeNode* pTreeNode = (treeNode*)calloc(1, sizeof(treeNode));
@@ -165,6 +197,10 @@ void insertTreeNode(int data)
 		if ( g_pGrand != g_pTreeHead ) {
 			g_pGrand->balance++;
 		}
+
+		if ( g_pBig!= g_pTreeHead ) {
+			g_pBig->balance++;
+		}
 	}
 	else {
 		g_pParent->right = g_pChild;
@@ -173,10 +209,21 @@ void insertTreeNode(int data)
 		if ( g_pGrand != g_pTreeHead ) {
 			g_pGrand->balance--;
 		}
+
+		if ( g_pBig!= g_pTreeHead ) {
+			g_pBig->balance--;
+		}
 	}
 
-	if ( needBalance() ) {
-		AVR_RR();
+	switch( needBalance() ) {
+		case RR:
+			AVR_RR();
+			break;
+		case LL:
+			AVR_LL();
+			break;
+		default:
+			break;
 	}
 }
 
