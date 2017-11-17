@@ -192,7 +192,7 @@ void showNodeData_AVL(treeNode *pNode)
 
 void traverseAVLTree_LevelOrder()
 {
-	printf("\nAVLTree_RR Level Traverse Test\n");
+	printf("\nAVL Tree Level Traverse Test\n");
 	
 	initializeQueue();
 

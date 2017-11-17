@@ -4,7 +4,7 @@ GCC = gcc
 CFLAGS = -O2 -Wall $(DEBUG)
 OBJECTS = main.o 
 TARGET = testTreeAVLRR
-INC = -L./lib -lBCtreeavlrr -L../Tree_CommLib/Queue -lBCtreequeue
+INC = -L./lib -lBCtreeavl -L../Tree_CommLib/Queue -lBCtreequeue
 
 all : TreeQueueLib TreeAVLRRLib $(TARGET) 
 
