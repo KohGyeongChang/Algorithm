@@ -3,15 +3,8 @@
 #include <string.h>
 #include "doublyLinkedList.h"
 
-extern nodeData* createNodeData();
-extern doublyLinkedList* createNode(char* data, int key);
-extern doublyLinkedList* createHead();
-extern doublyLinkedList* createTail();
-extern doublyLinkedList* g_pHead; 
-extern doublyLinkedList* g_pTail;
 extern int initializedoublyLinkedList();
 extern void releasedoublyLinkedList();
-extern void releaseNode(doublyLinkedList* pNode);
 extern int addData(char* data, int key);
 extern int getData(char* bufString, int key);
 extern int deleteData(int key);
