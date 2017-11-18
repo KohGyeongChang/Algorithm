@@ -3,15 +3,8 @@
 #include <string.h>
 #include "circularLinkedList.h"
 
-extern nodeData* createNodeData();
-extern circularLinkedList* createNode(char* data, int key);
-extern circularLinkedList* createHead();
-extern circularLinkedList* createTail();
-extern circularLinkedList* g_pHead; 
-extern circularLinkedList* g_pTail;
 extern int initializecircularLinkedList();
 extern void releasecircularLinkedList();
-extern void releaseNode(circularLinkedList* pNode);
 extern int addData(char* data, int key);
 extern int getData(char* bufString, int key);
 extern int deleteData(int key);
