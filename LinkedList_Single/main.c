@@ -3,15 +3,8 @@
 #include <string.h>
 #include "singleLinkedList.h"
 
-extern nodeData* createNodeData();
-extern singleLinkedList* createNode(char* data, int key);
-extern singleLinkedList* createHead();
-extern singleLinkedList* createTail();
-extern singleLinkedList* g_pHead; 
-extern singleLinkedList* g_pTail;
 extern int initializeSingleLinkedList();
 extern void releaseSingleLinkedList();
-extern void releaseNode(singleLinkedList* pNode);
 extern int addData(char* data, int key);
 extern int getData(char* bufString, int key);
 extern int deleteData(int key);
