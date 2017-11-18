@@ -3,15 +3,8 @@
 #include <string.h>
 #include "./lib/queue.h"
 
-extern nodeData* createNodeData();
-extern queueLinkedList* createNode(char* data);
-extern queueLinkedList* createHead();
-extern queueLinkedList* createTail();
-extern queueLinkedList* g_pHead; 
-extern queueLinkedList* g_pTail;
 extern int initializequeue();
 extern void releasequeue();
-extern void releaseNode(queueLinkedList* pNode);
 extern int pushData(char* data);
 extern int popData(char* popedString);
 extern void showAllData();
@@ -19,12 +12,16 @@ extern void showAllData();
 int main()
 {
 	printf("queue Test\n");
+
 	initializequeue();
 	showAllData();
+
 	pushData("Start");
 	showAllData();
+
 	pushData("Zero");
 	showAllData();
+
 	pushData("Real");
 	showAllData();
 
