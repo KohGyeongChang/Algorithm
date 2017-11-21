@@ -1,21 +1,27 @@
+.SUFFIXES = .c .o
 DEBUG = -g -DDEBUGINFO
 GCC = gcc
 CFLAGS = -O2 -Wall $(DEBUG)
-OBJECTS = main.o generalList.o
-EXE:testOut
+OBJECTS = main.o 
+TARGET = testGeneralList
+INC = 
+LIBS = -L./lib -lBCgeneralList
+
+all : GeneralListLIB $(TARGET)
+
+GeneralListLIB:
+	cd ./lib;$(MAKE)
+
+$(TARGET): $(OBJECTS)
+	$(GCC) $(OBJECTS) -o $(TARGET) $(LIBS)
 
 main.o:main.c
-	$(GCC) $(CFLAGS) -c main.c
-
-generalList.o:generalList.c
-	$(GCC) $(CFLAGS) -c generalList.c
-
-testOut: $(OBJECTS)
-	$(GCC) $(OBJECTS) -o testOut
+	$(GCC) $(CFLAGS) -c main.c $(LIBS)
 
 clean:
-	rm -f *.o testOut
+	cd ./lib;$(MAKE) clean
+	rm -f *.o $(TARGET)
 
 run:
-	./testOut
+	./$(TARGET)
 

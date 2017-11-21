@@ -1,11 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "generalList.h"
+#include "./lib/generalList.h"
 
-extern listMgr* createListMgr();
-extern dataList* createList(int ListSize);
 extern listMgr* initializeList(int ListSize);
-extern int reArrange(listMgr* pListMgr, int Pos);
 extern int addData(listMgr* pListMgr, int pos, int data);
 extern int getData(listMgr* pListMgr, int pos);
 extern int removeData(listMgr* pListMgr, int pos);
