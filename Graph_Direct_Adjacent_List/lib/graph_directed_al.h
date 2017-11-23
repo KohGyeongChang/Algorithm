@@ -1,13 +1,14 @@
-#ifndef GRAPH_DIRECTED_ADJACENTMATRIX_H
-#define GRAPH_DIRECTED_ADJACENTMATRIX_H
+#ifndef GRAPH_DIRECTED_ADJACENTLIST_H
+#define GRAPH_DIRECTED_ADJACENTLIST_H
 
+#include "../../GeneralList/lib/generalList.h"
 
-typedef struct GRAPH_DIRECTED_ADJACENTMATRIX {
+typedef struct GRAPH_DIRECTED_ADJACENTLIST{
 
 	int vertexSize;
-	int** adjacentMatrix;
+	listMgr** adjacentList;
 
-} graphDAMatrix;
+} graphDAList;
 
 #endif
 

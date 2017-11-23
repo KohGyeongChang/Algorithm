@@ -1,3 +1,6 @@
+#ifndef GENERALLIST_H
+#define GENERALLIST_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,4 +21,4 @@ typedef struct LISTMGR{
 } listMgr;
 
 
-
+#endif

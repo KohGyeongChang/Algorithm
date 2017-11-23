@@ -1,23 +1,27 @@
 .SUFFIXES = .c .o
 DEBUG = -g -DDEBUGINFO
-GCC = gcc
+CC = gcc
 CFLAGS = -O2 -Wall $(DEBUG)
 OBJECTS = main.o 
-TARGET = testGDAM
-INC = -L./lib -lBCgraphdal
+TARGET = testGDAL
+LIBS = -L./lib -lBCgraphdal 
 
-all : GraphDALLib $(TARGET) 
+all : GeneralListLIB GraphDALLib $(TARGET) 
+
+GeneralListLIB:
+	cd ../GeneralList/lib;$(MAKE)
 
 GraphDALLib: 
 	cd ./lib;$(MAKE)
 
 $(TARGET): $(OBJECTS)
-	$(GCC) -o $(TARGET) $(OBJECTS) $(INC)
+	$(CC) -o $(TARGET) $(OBJECTS) $(LIBS)
 
 main.o:main.c
-	$(GCC) $(CFLAGS) -c main.c $(INC)
+	$(CC) $(CFLAGS) -c main.c $(LIBS)
 
 clean:
+	cd ../GeneralList/lib;$(MAKE) clean
 	cd ./lib;$(MAKE) clean
 	rm -f $(OBJECTS) $(TARGET)
 
