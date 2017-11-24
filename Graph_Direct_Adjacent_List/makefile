@@ -4,7 +4,7 @@ CC = gcc
 CFLAGS = -O2 -Wall $(DEBUG)
 OBJECTS = main.o 
 TARGET = testGDAL
-LIBS = -L./lib -lBCgraphdal 
+LIBS = -L./lib -lBCgraphdal -L../GeneralList/lib -lBCgeneralList
 
 all : GeneralListLIB GraphDALLib $(TARGET) 
 

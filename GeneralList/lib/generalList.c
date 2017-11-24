@@ -84,7 +84,7 @@ int addData(listMgr* pListMgr, int pos, int data)
 		printf("Index reArrange FAIL : Input Pos[%d], Input Data[%d]\n", pos, data);
 		return -1;
 	}
-
+	printf("Index reArrange SUCCESS: Input Pos[%d], Input Data[%d]\n", index, data);
 	pListMgr->dataList[index].data = data;
 	pListMgr->currSize++;
 	return 0;

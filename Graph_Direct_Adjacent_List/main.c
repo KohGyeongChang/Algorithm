@@ -13,20 +13,17 @@ int main()
 {
 	printf("Graph Directed Adjacent List Test\n");
 	
-	graphDAList* pGraph = createGDAL(10);
+	graphDAList* pGraph = createGDAL(6);
+
 	addEdgeGDAL(pGraph, 0,1);
-	addEdgeGDAL(pGraph, 1,1);
-	addEdgeGDAL(pGraph, 4,1);
-	addEdgeGDAL(pGraph, 0,1);
-	addEdgeGDAL(pGraph, 5,1);
-	addEdgeGDAL(pGraph, 5,7);
-	addEdgeGDAL(pGraph, 7,1);
-	addEdgeGDAL(pGraph, 8,1);
-	addEdgeGDAL(pGraph, 8,3);
-	addEdgeGDAL(pGraph, 8,8);
-	addEdgeGDAL(pGraph, 8,9);
-	addEdgeGDAL(pGraph, 9,9);
-	addEdgeGDAL(pGraph, 10,1);
+	addEdgeGDAL(pGraph, 1,2);
+	addEdgeGDAL(pGraph, 2,0);
+	addEdgeGDAL(pGraph, 2,3);
+	addEdgeGDAL(pGraph, 3,2);
+	addEdgeGDAL(pGraph, 3,4);
+	addEdgeGDAL(pGraph, 4,5);
+	addEdgeGDAL(pGraph, 5,3);
+
 	displayGDAL(pGraph);
 	deleteGDAL(pGraph);
 

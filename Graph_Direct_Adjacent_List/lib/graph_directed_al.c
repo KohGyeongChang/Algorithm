@@ -29,27 +29,6 @@ graphDAList* createGDAL(int VertexSize)
 		pGDAL->adjacentList[i] = initializeList(VertexSize);
 	}
 
-	/*
-	for( int i = 0 ; i < VertexSize; ++i) {
-		pGDAL->adjacentList[i] = createListMgr();
-		if ( pGDAL->adjacentList[i] == NULL ) {
-			for( int j = 0; j < i;++j) {
-				free(pGDAL->adjacentList[j]);
-			}
-			return NULL;
-
-		}
-
-		pGDAL->adjacentList[i]->dataList = (dataList*)calloc(1, sizeof(dataList) * VertexSize);
-		if ( pGDAL->adjacentList[i]->dataList == NULL ) {
-			for( int j = 0; j < i;++j) {
-				free(pGDAL->adjacentList[j]->dataList);
-			}
-			return NULL;
-		}
-	}
-	*/
-
 	return pGDAL;
 }
 
@@ -68,7 +47,8 @@ bool addEdgeGDAL(graphDAList* pGDAL, int TailVertex, int HeadVertex)
 		return false;
 	}
 
-	addData(pGDAL->adjacentList[TailVertex], 0, HeadVertex);
+	//addData(pGDAL->adjacentList[TailVertex], 1, HeadVertex); 
+	addData(pGDAL->adjacentList[TailVertex], HeadVertex+1, 1); 
 
 	return true;
 }
@@ -118,11 +98,12 @@ bool getEdgeGDAL(graphDAList* pGDAL, int TailVertex, int HeadVertex)
 
 	listMgr* pListMgr = pGDAL->adjacentList[TailVertex];
 	for( int i = 0 ; i < pGDAL->vertexSize; ++i ) {
-		if ( pListMgr->dataList[i].data == HeadVertex ) {
+		if ( getData(pListMgr, i+1) == HeadVertex ) {
 			bRet = true;
 			break;
 		}
 	}
+
 	return bRet;
 }
 
