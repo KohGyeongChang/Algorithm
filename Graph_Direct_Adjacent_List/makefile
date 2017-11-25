@@ -4,12 +4,12 @@ CC = gcc
 CFLAGS = -O2 -Wall $(DEBUG)
 OBJECTS = main.o 
 TARGET = testGDAL
-LIBS = -L./lib -lBCgraphdal -L../GeneralList/lib -lBCgeneralList
+LIBS = -L./lib -lBCgraphdal -L../Graph_CommLib -lBCgeneralList
 
 all : GeneralListLIB GraphDALLib $(TARGET) 
 
 GeneralListLIB:
-	cd ../GeneralList/lib;$(MAKE)
+	cd ../Graph_CommLib;$(MAKE)
 
 GraphDALLib: 
 	cd ./lib;$(MAKE)
@@ -21,7 +21,7 @@ main.o:main.c
 	$(CC) $(CFLAGS) -c main.c $(LIBS)
 
 clean:
-	cd ../GeneralList/lib;$(MAKE) clean
+	cd ../Graph_CommLib;$(MAKE) clean
 	cd ./lib;$(MAKE) clean
 	rm -f $(OBJECTS) $(TARGET)
 

@@ -1,7 +1,7 @@
 #ifndef GRAPH_DIRECTED_ADJACENTLIST_H
 #define GRAPH_DIRECTED_ADJACENTLIST_H
 
-#include "../../GeneralList/lib/generalList.h"
+#include "../../Graph_CommLib/generalList.h"
 
 typedef struct GRAPH_DIRECTED_ADJACENTLIST{
 

@@ -71,7 +71,7 @@ bool removeEdgeGDAL(graphDAList* pGDAL, int TailVertex, int HeadVertex)
 
 	listMgr* pListMgr = pGDAL->adjacentList[TailVertex];
 	for( int i = 0 ; i < pGDAL->vertexSize; ++i ) {
-		if ( pListMgr->dataList[i].data == HeadVertex ) {
+		if ( getData(pListMgr, HeadVertex + 1 ) == 1 ) {
 			removeData(pListMgr, i);
 			break;
 		}
@@ -98,7 +98,7 @@ bool getEdgeGDAL(graphDAList* pGDAL, int TailVertex, int HeadVertex)
 
 	listMgr* pListMgr = pGDAL->adjacentList[TailVertex];
 	for( int i = 0 ; i < pGDAL->vertexSize; ++i ) {
-		if ( getData(pListMgr, i+1) == HeadVertex ) {
+		if ( getData(pListMgr, HeadVertex+1) == 1) {
 			bRet = true;
 			break;
 		}

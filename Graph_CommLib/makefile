@@ -1,18 +1,18 @@
 .SUFFIXES = .c .o
 DEBUG = -g -DDEBUGINFO
-CC = gcc
+GCC = gcc
 CFLAGS = -fPIC -O2 -Wall $(DEBUG)
-OBJECTS = graph_directed_al.o
+OBJECTS = generalList.o
 AR = ar
 ARFLAGS = rc
-LIBS = -L../../Graph_CommLib -lBCgeneralList
-TARGET = libBCgraphdal.a
+TARGET = libBCgeneralList.a
+
 
 $(TARGET): $(OBJECTS)
 	$(AR) $(ARFLAGS) $(TARGET) $(OBJECTS) 
 
-graph_directed_al.o:graph_directed_al.c
-	$(CC) $(CFLAGS) -c graph_directed_al.c $(LIBS)
+generalList.o:generalList.c
+	$(GCC) $(CFLAGS) -c generalList.c
 
 clean:
 	rm -f $(OBJECTS) $(TARGET)
