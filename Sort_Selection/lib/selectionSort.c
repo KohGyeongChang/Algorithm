@@ -3,6 +3,8 @@
 #include <string.h>
 #include "selectionSort.h"
 
+void displayList(int [], int); 
+
 void selectionSort(int inputList[], int inputSize)
 {
 	int indexOfMinValue;	
@@ -19,6 +21,7 @@ void selectionSort(int inputList[], int inputSize)
 		int tmp = inputList[i];
 		inputList[i] = inputList[indexOfMinValue];
 		inputList[indexOfMinValue] = tmp;
+		displayList(inputList, inputSize);
 	}
 
 }

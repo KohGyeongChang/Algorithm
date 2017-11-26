@@ -46,8 +46,8 @@ int main()
 	makeList(inputList, LIST_SIZE);
 	displayList(inputList, LIST_SIZE);
 	
+	printf("Start Selection Sort\n");
 	selectionSort(inputList, LIST_SIZE);
-	displayList(inputList, LIST_SIZE);
 	
 
 	return 0;
