@@ -122,10 +122,12 @@ node* popNode(listMgr* ListMgr, int PopFlag, int Key)
 		
 		case POP_FRONT:
 			popedNode = ListMgr->arrayList[0];
+			ListMgr->arrayList[0] = NULL;
 			if (popedNode ) {
-				ListMgr->arrayList[0] = NULL;
-				ListMgr->currSize--;
+				//************************************************************
+				// After reOrderingList, Current Size Value should be managed 
 				reOrderingList(ListMgr, REORDER_DELETE_FRONT, 1);
+				ListMgr->currSize--;
 			}
 			break;
 		case POP_RANDOM:
@@ -135,8 +137,10 @@ node* popNode(listMgr* ListMgr, int PopFlag, int Key)
 				popedNode = ListMgr->arrayList[index];
 				ListMgr->arrayList[index] = NULL;
 				if (popedNode ) {
-					ListMgr->currSize--;
+					//************************************************************
+					// After reOrderingList, Current Size Value should be managed 
 					reOrderingList(ListMgr, REORDER_DELETE_RANDOM, index+1);
+					ListMgr->currSize--;
 				}
 			}
 		}
@@ -144,19 +148,13 @@ node* popNode(listMgr* ListMgr, int PopFlag, int Key)
 		case POP_LAST:
 			popedNode = ListMgr->arrayList[ListMgr->currSize-1];
 			if (popedNode ) {
-				ListMgr->currSize--;
 				ListMgr->arrayList[ListMgr->currSize-1] = NULL;
+				ListMgr->currSize--;
 			}
 			break;
 		default:
 			break;
 	}
-
-	/*
-	if (popedNode ) {
-		ListMgr->currSize--;
-	}
-	*/
 
 	return popedNode;
 }
