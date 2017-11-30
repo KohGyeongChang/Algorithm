@@ -23,7 +23,7 @@ int main()
 	insertNode(pListMgr, 2, "2", REORDER_INSERT_LAST,1);
 	insertNode(pListMgr, 3, "3", REORDER_INSERT_LAST,1);
 	insertNode(pListMgr, 4, "4", REORDER_INSERT_LAST,1);
-	insertNode(pListMgr, 5, "5", REORDER_INSERT_LAST,1);
+	insertNode(pListMgr, 5, "5", REORDER_INSERT_FRONT,1);
 	printf("Current Length: %d\n", getCurrentLength(pListMgr));
 	displayList(pListMgr);
 
