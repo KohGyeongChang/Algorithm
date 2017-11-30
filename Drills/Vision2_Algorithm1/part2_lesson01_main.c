@@ -32,7 +32,5 @@ int main()
 	int coinValue[2] = { 0 };
 	coin(coinValue, 0);
 
-	
-
 	return 0;
 }
