@@ -47,7 +47,6 @@ bool addEdgeGDAL(graphDAList* pGDAL, int TailVertex, int HeadVertex)
 		return false;
 	}
 
-	//addData(pGDAL->adjacentList[TailVertex], 1, HeadVertex); 
 	addData(pGDAL->adjacentList[TailVertex], HeadVertex+1, 1); 
 
 	return true;
