@@ -4,7 +4,6 @@
 #include <string.h>
 #include "arrayList.h"
 
-void reOrderingList(listMgr* ListMgr, int MoveFlag, int InsertPos);
 void reOrderingInInsert(listMgr* ListMgr, int InsertPos);
 void reOrderingInDelete(listMgr* ListMgr, int InsertPos);
 
@@ -67,7 +66,8 @@ bool insertNode(listMgr* ListMgr, int Key, char* pData, int InsertFlag, int Inse
 	strcpy(pNewNode->data, pData);
 
 	if ( InsertFlag == REORDER_INSERT_FRONT || InsertFlag == REORDER_INSERT_RANDOM ) {
-		reOrderingList(ListMgr, InsertFlag, InsertPos);
+		reOrderingInInsert(ListMgr, InsertPos);
+		//reOrderingList(ListMgr, InsertFlag, InsertPos);
 		ListMgr->arrayList[InsertPos-1] = pNewNode;
 		ListMgr->currSize++;
 
@@ -126,7 +126,7 @@ node* popNode(listMgr* ListMgr, int PopFlag, int Key)
 			if (popedNode ) {
 				//************************************************************
 				// After reOrderingList, Current Size Value should be managed 
-				reOrderingList(ListMgr, REORDER_DELETE_FRONT, 1);
+				reOrderingInDelete(ListMgr, 1);
 				ListMgr->currSize--;
 			}
 			break;
@@ -139,7 +139,7 @@ node* popNode(listMgr* ListMgr, int PopFlag, int Key)
 				if (popedNode ) {
 					//************************************************************
 					// After reOrderingList, Current Size Value should be managed 
-					reOrderingList(ListMgr, REORDER_DELETE_RANDOM, index+1);
+					reOrderingInDelete(ListMgr, index+1);
 					ListMgr->currSize--;
 				}
 			}
@@ -159,41 +159,29 @@ node* popNode(listMgr* ListMgr, int PopFlag, int Key)
 	return popedNode;
 }
 
-void reOrderingList(listMgr* ListMgr, int MoveFlag, int InsertPos)
-{
-	switch ( MoveFlag ) {
-		case REORDER_INSERT_RANDOM:
-		case REORDER_INSERT_FRONT:
-			reOrderingInInsert(ListMgr, InsertPos);
-			break;
-
-		case REORDER_DELETE_FRONT:
-		case REORDER_DELETE_RANDOM:
-			reOrderingInDelete(ListMgr, InsertPos);
-			break;
-
-		default:
-			printf("Error : Wrong MoveFlag[%d]\n", MoveFlag);
-			break;
-
-	}
-}
-
-void reOrderingInInsert(listMgr* ListMgr, int InsertPos)
+bool checkReOrderBoundary(listMgr* ListMgr, int InsertPos)
 {
 	if ( ListMgr == NULL || InsertPos < 1 ) {
 		printf("Error : ListMgr is NULL\n");
-		return;
+		return false;
 	}
 
 	if ( InsertPos < 1 ) {
 		printf("Error : Wrong InsertPos[%d]\n", InsertPos);
-		return;
+		return false;
 	}
 
 	if ( ListMgr->currSize == 0) {
-		return;	
+		return false;
 	}
+
+	return true;	
+}
+
+
+void reOrderingInInsert(listMgr* ListMgr, int InsertPos)
+{
+	if ( !checkReOrderBoundary(ListMgr, InsertPos) ) return ;
 
 	int loopCnt = ListMgr->currSize - ( InsertPos - 1 );
 	int tmpIndex = ListMgr->currSize;
@@ -210,19 +198,7 @@ void reOrderingInInsert(listMgr* ListMgr, int InsertPos)
 
 void reOrderingInDelete(listMgr* ListMgr, int InsertPos)
 {
-	if ( ListMgr == NULL || InsertPos < 1 ) {
-		printf("Error : ListMgr is NULL\n");
-		return;
-	}
-
-	if ( InsertPos < 1 ) {
-		printf("Error : Wrong InsertPos[%d]\n", InsertPos);
-		return;
-	}
-
-	if ( ListMgr->currSize == 0) {
-		return;
-	}
+	if ( !checkReOrderBoundary(ListMgr, InsertPos) ) return ;
 
 	int loopCnt = ListMgr->currSize - InsertPos;
 	int tmpIndex = InsertPos - 1;
@@ -257,6 +233,7 @@ bool releaseList(listMgr* ListMgr)
 			free(ListMgr->arrayList[i]);
 		}
 	}
+
 	free(ListMgr->arrayList);
 	ListMgr->arrayList = NULL;
 
