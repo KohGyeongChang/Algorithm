@@ -38,7 +38,6 @@ void releaseList(arrayNode** arrayList, int Size)
 			arrayList[i] = NULL;
 		}
 	}
-
 	free(arrayList);
 }
 
@@ -88,7 +87,6 @@ int reorderingList(arrayNode** arrayList, int InsertPos)
 	}
 
 	return InsertPos - 1;
-
 }
 
 bool insertData(arrayNode** arrayList, int Key, char* pData, int InsertPos)
@@ -114,10 +112,87 @@ bool insertData(arrayNode** arrayList, int Key, char* pData, int InsertPos)
 	return true;
 }
 
+int findNode(arrayNode** arrayList, int Key)
+{
+	int index = -1;
+	for( int i = 0; i < g_currIndex; ++i) {
+		if ( arrayList[i]->key == Key ) {
+			index = i;
+			break;
+		}
+	}
+
+	return index;
+}
+
+arrayNode* removeHead(arrayNode** arrayList)
+{
+	arrayNode* popedNode = NULL;
+	popedNode = arrayList[0];
+	for( int i  = 1; i < g_currIndex; ++i) {
+		arrayList[i-1] = arrayList[i];
+	}
+	arrayList[--g_currIndex] = NULL;
+
+	return popedNode;
+}
+
+arrayNode* removeTail(arrayNode** arrayList)
+{
+	arrayNode* popedNode = NULL;
+	popedNode = arrayList[--g_currIndex];
+	arrayList[g_currIndex] = NULL;
+
+	return popedNode;
+}
+
+arrayNode* popData(arrayNode** arrayList, int Key, int popFlag)
+{
+	if ( arrayList == NULL ) {
+		printString(__FILE__, __func__, __LINE__, "ERROR => arrayList NULL");
+		return NULL;
+	}
+
+	arrayNode* popedNode = NULL;
+
+	if ( popFlag == 1 ) {
+		popedNode = removeHead(arrayList);
+	}
+	else if ( popFlag == -1 ) {
+		popedNode = removeTail(arrayList);
+	}
+	else if ( popFlag == 0 ) {
+		int index = findNode(arrayList, Key);
+
+		if ( index == 0 ) {
+			popedNode = removeHead(arrayList);
+		}
+		else if ( index == (g_currIndex - 1) ) {
+			popedNode = removeTail(arrayList);
+		}
+		else if ( index < 0 ) {
+			printString(__FILE__, __func__, __LINE__, "ERROR => DATA NOT FOUND : key[%d]", Key);
+		}
+		else {
+			popedNode = arrayList[index];
+			for( int i  = index + 1; i < g_currIndex; ++i) {
+				arrayList[i-1] = arrayList[i];
+			}
+			arrayList[--g_currIndex] = NULL;
+		}
+	}
+	else {
+
+	}
+
+	return popedNode;
+}
+
 void displayList(arrayNode** arrayList)
 {
 	//printString(__FILE__, __func__, __LINE__, "Array List =>List Size [%d] :  Current Size [%d]", g_listSize, g_currIndex);
 
+	printf("\n");
 	for( int i = 0; i < g_listSize; ++i ) {
 		if ( arrayList[i] ) {
 		 	printString(__FILE__, __func__, __LINE__, "List[%d] => Key[%d]:Data[%s]", i, arrayList[i]->key, arrayList[i]->data); 
