@@ -100,14 +100,15 @@ bool insertData(arrayNode** arrayList, int Key, char* pData, int InsertPos)
 
 	arrayNode* pNewNode = createArrayNode(Key, pData);
 
-	if ( InsertPos < 0 || ( InsertPos > g_listSize && g_currIndex <  g_listSize  ) ) {
-		arrayList[g_currIndex++] = pNewNode;
-		return true;
-	}
+	if ( InsertPos > 0 && (InsertPos-1) <= g_currIndex ) {
 
-	int index = reorderingList(arrayList, InsertPos);
-	arrayList[index] = pNewNode;
-	g_currIndex++;
+		int index = reorderingList(arrayList, InsertPos);
+		arrayList[index] = pNewNode;
+		g_currIndex++;
+	}
+	else {
+		arrayList[g_currIndex++] = pNewNode;
+	}
 
 	return true;
 }
@@ -182,7 +183,7 @@ arrayNode* popData(arrayNode** arrayList, int Key, int popFlag)
 		}
 	}
 	else {
-
+		printString(__FILE__, __func__, __LINE__, "ERROR => Undefined  Pop Flag : popFlag[%d]", popFlag);
 	}
 
 	return popedNode;
@@ -190,8 +191,6 @@ arrayNode* popData(arrayNode** arrayList, int Key, int popFlag)
 
 void displayList(arrayNode** arrayList)
 {
-	//printString(__FILE__, __func__, __LINE__, "Array List =>List Size [%d] :  Current Size [%d]", g_listSize, g_currIndex);
-
 	printf("\n");
 	for( int i = 0; i < g_listSize; ++i ) {
 		if ( arrayList[i] ) {

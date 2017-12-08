@@ -13,7 +13,7 @@ int main()
 {
 	printString(__FILE__, __func__, __LINE__, "ArrayList Test Program");
 
-	arrayNode** arrayList = initializeList(10);
+	arrayNode** arrayList = initializeList(30);
 	if ( arrayList == NULL ) {
 		printString(__FILE__, __func__, __LINE__, "Failed To Initialize List");
 		return -1;	
@@ -53,6 +53,9 @@ int main()
 
 	popedNode = popData(arrayList, 28, 0);
 	printString(__FILE__, __func__, __LINE__, "Poped Node Value => Key[%d], Data[%s]", popedNode->key, popedNode->data);
+	displayList(arrayList);
+
+	insertData(arrayList, 456, "Sanbon",  30);
 	displayList(arrayList);
 
 	releaseList(arrayList);
