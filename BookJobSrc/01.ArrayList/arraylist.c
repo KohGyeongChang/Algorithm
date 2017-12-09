@@ -7,7 +7,7 @@
 #include "arraylist.h"
 
 int g_listSize;
-int g_currIndex;
+int g_idxToInsert;
 
 void printString(char* FileName, const char* pFuncName, int LineNumber, char* pErrString, ...)
 {
@@ -23,7 +23,7 @@ void printString(char* FileName, const char* pFuncName, int LineNumber, char* pE
 arrayNode** initializeList(int ListSize)
 {
 	g_listSize = ListSize;
-	g_currIndex = 0;
+	g_idxToInsert = 0;
 	arrayNode** pArrayList = NULL;
 	pArrayList = (arrayNode**)calloc(1, sizeof(arrayNode*) * g_listSize);
 
@@ -63,8 +63,8 @@ int checkValidation(arrayNode** arrayList, int InsertPos)
 		printString(__FILE__, __func__,__LINE__, "ERROR => arrayList Pointer NULL");
 		nRet = ERR_NULL_POINTER;
 	}
-	else if ( g_currIndex >= g_listSize ) {
-		printString(__FILE__, __func__,__LINE__, "LIST FULL => NO MORE DATA : Array List Size[%d], Array Current Size[%d]", g_listSize, g_currIndex);
+	else if ( g_idxToInsert >= g_listSize ) {
+		printString(__FILE__, __func__,__LINE__, "LIST FULL => NO MORE DATA : Array List Size[%d], Array Current Size[%d]", g_listSize, g_idxToInsert);
 		nRet = STATUS_LIST_FULL;
 	}
 	else if ( InsertPos == 0 ) {
@@ -100,14 +100,14 @@ bool insertData(arrayNode** arrayList, int Key, char* pData, int InsertPos)
 
 	arrayNode* pNewNode = createArrayNode(Key, pData);
 
-	if ( InsertPos > 0 && (InsertPos-1) <= g_currIndex ) {
+	if ( InsertPos > 0 && (InsertPos-1) <= g_idxToInsert ) {
 
 		int index = reorderingList(arrayList, InsertPos);
 		arrayList[index] = pNewNode;
-		g_currIndex++;
+		g_idxToInsert++;
 	}
 	else {
-		arrayList[g_currIndex++] = pNewNode;
+		arrayList[g_idxToInsert++] = pNewNode;
 	}
 
 	return true;
@@ -116,7 +116,7 @@ bool insertData(arrayNode** arrayList, int Key, char* pData, int InsertPos)
 int findNode(arrayNode** arrayList, int Key)
 {
 	int index = -1;
-	for( int i = 0; i < g_currIndex; ++i) {
+	for( int i = 0; i < g_idxToInsert; ++i) {
 		if ( arrayList[i]->key == Key ) {
 			index = i;
 			break;
@@ -130,10 +130,10 @@ arrayNode* removeHead(arrayNode** arrayList)
 {
 	arrayNode* popedNode = NULL;
 	popedNode = arrayList[0];
-	for( int i  = 1; i < g_currIndex; ++i) {
+	for( int i  = 1; i < g_idxToInsert; ++i) {
 		arrayList[i-1] = arrayList[i];
 	}
-	arrayList[--g_currIndex] = NULL;
+	arrayList[--g_idxToInsert] = NULL;
 
 	return popedNode;
 }
@@ -141,8 +141,8 @@ arrayNode* removeHead(arrayNode** arrayList)
 arrayNode* removeTail(arrayNode** arrayList)
 {
 	arrayNode* popedNode = NULL;
-	popedNode = arrayList[--g_currIndex];
-	arrayList[g_currIndex] = NULL;
+	popedNode = arrayList[--g_idxToInsert];
+	arrayList[g_idxToInsert] = NULL;
 
 	return popedNode;
 }
@@ -151,6 +151,11 @@ arrayNode* popData(arrayNode** arrayList, int Key, int popFlag)
 {
 	if ( arrayList == NULL ) {
 		printString(__FILE__, __func__, __LINE__, "ERROR => arrayList NULL");
+		return NULL;
+	}
+
+	if ( g_idxToInsert ==  0 ) {
+		printString(__FILE__, __func__, __LINE__, "STATUS => arrayList Empty => Key[%d], popFlag[%d]", Key, popFlag);
 		return NULL;
 	}
 
@@ -168,7 +173,7 @@ arrayNode* popData(arrayNode** arrayList, int Key, int popFlag)
 		if ( index == 0 ) {
 			popedNode = removeHead(arrayList);
 		}
-		else if ( index == (g_currIndex - 1) ) {
+		else if ( index == (g_idxToInsert - 1) ) {
 			popedNode = removeTail(arrayList);
 		}
 		else if ( index < 0 ) {
@@ -176,10 +181,10 @@ arrayNode* popData(arrayNode** arrayList, int Key, int popFlag)
 		}
 		else {
 			popedNode = arrayList[index];
-			for( int i  = index + 1; i < g_currIndex; ++i) {
+			for( int i  = index + 1; i < g_idxToInsert; ++i) {
 				arrayList[i-1] = arrayList[i];
 			}
-			arrayList[--g_currIndex] = NULL;
+			arrayList[--g_idxToInsert] = NULL;
 		}
 	}
 	else {

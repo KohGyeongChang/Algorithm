@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include "arraylist.h"
 
@@ -21,38 +22,67 @@ int main()
 	printString(__FILE__, __func__, __LINE__, "Succeeded To Initialize List");
 
 	insertData(arrayList, 9, "Hello", 1);
+	displayList(arrayList);
 	insertData(arrayList, 1, "Morning", 1);
+	displayList(arrayList);
 	insertData(arrayList, 10, "World", 1);
+	displayList(arrayList);
 	insertData(arrayList, 99, "name",  -1);
+	displayList(arrayList);
 	insertData(arrayList, 4, "Korea",  1);
+	displayList(arrayList);
 	insertData(arrayList, 48, "Book",  1);
+	displayList(arrayList);
 	insertData(arrayList, 28, "Desk",  11);
+	displayList(arrayList);
 	insertData(arrayList, 100, "Linux",  -1);
+	displayList(arrayList);
 	insertData(arrayList, 54, "Pencil",  1);
+	displayList(arrayList);
 	insertData(arrayList, 120, "Windows",  3);
 	displayList(arrayList);
 
 	arrayNode* popedNode = NULL;
 
 	popedNode = popData(arrayList, 120, 1);
-	printString(__FILE__, __func__, __LINE__, "Poped Node Value => Key[%d], Data[%s]", popedNode->key, popedNode->data);
-
+	if ( popedNode ) {
+		printString(__FILE__, __func__, __LINE__, "Front Poped Node Value => Key[%d], Data[%s]", popedNode->key, popedNode->data);
+		free(popedNode);
+		popedNode = NULL;
+	}
 	displayList(arrayList);
 
 	popedNode = popData(arrayList, 120, -1);
-	printString(__FILE__, __func__, __LINE__, "Poped Node Value => Key[%d], Data[%s]", popedNode->key, popedNode->data);
+	if ( popedNode ) {
+		printString(__FILE__, __func__, __LINE__, "End Poped Node Value => Key[%d], Data[%s]", popedNode->key, popedNode->data);
+		free(popedNode);
+		popedNode = NULL;
+	}
 	displayList(arrayList);
 
 	popedNode = popData(arrayList, 1, 0);
-	printString(__FILE__, __func__, __LINE__, "Poped Node Value => Key[%d], Data[%s]", popedNode->key, popedNode->data);
+	if ( popedNode ) {
+		printString(__FILE__, __func__, __LINE__, "Middle Poped Node Value => Key[%d], Data[%s]", popedNode->key, popedNode->data);
+		free(popedNode);
+		popedNode = NULL;
+	}
 	displayList(arrayList);
 
 	popedNode = popData(arrayList, 48, 0);
-	printString(__FILE__, __func__, __LINE__, "Poped Node Value => Key[%d], Data[%s]", popedNode->key, popedNode->data);
+	if ( popedNode ) {
+		printString(__FILE__, __func__, __LINE__, "Middle Poped Node Value => Key[%d], Data[%s]", popedNode->key, popedNode->data);
+		free(popedNode);
+		popedNode = NULL;
+	}
 	displayList(arrayList);
 
+	popedNode = NULL;
 	popedNode = popData(arrayList, 28, 0);
-	printString(__FILE__, __func__, __LINE__, "Poped Node Value => Key[%d], Data[%s]", popedNode->key, popedNode->data);
+	if ( popedNode ) {
+		printString(__FILE__, __func__, __LINE__, "Middle Poped Node Value => Key[%d], Data[%s]", popedNode->key, popedNode->data);
+		free(popedNode);
+		popedNode = NULL;
+	}
 	displayList(arrayList);
 
 	insertData(arrayList, 456, "Sanbon",  30);
