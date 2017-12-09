@@ -6,7 +6,7 @@
 extern void printString(char*, const char*, int, char*, ...);
 extern arrayNode** initializeList(int);
 extern bool releaseList(arrayNode**);
-extern bool insertData(arrayNode**, int, char*, int);
+extern int insertData(arrayNode**, int, char*, int);
 extern arrayNode* popData(arrayNode**, int, int);
 extern void displayList(arrayNode**);
 
@@ -14,7 +14,8 @@ int main()
 {
 	printString(__FILE__, __func__, __LINE__, "ArrayList Test Program");
 
-	arrayNode** arrayList = initializeList(30);
+	arrayNode** arrayList = initializeList(20);
+
 	if ( arrayList == NULL ) {
 		printString(__FILE__, __func__, __LINE__, "Failed To Initialize List");
 		return -1;	
@@ -23,24 +24,25 @@ int main()
 
 	insertData(arrayList, 9, "Hello", 1);
 	displayList(arrayList);
+
 	insertData(arrayList, 1, "Morning", 1);
 	displayList(arrayList);
+
 	insertData(arrayList, 10, "World", 1);
 	displayList(arrayList);
+
 	insertData(arrayList, 99, "name",  -1);
 	displayList(arrayList);
+
 	insertData(arrayList, 4, "Korea",  1);
 	displayList(arrayList);
+
 	insertData(arrayList, 48, "Book",  1);
 	displayList(arrayList);
+
 	insertData(arrayList, 28, "Desk",  11);
 	displayList(arrayList);
-	insertData(arrayList, 100, "Linux",  -1);
-	displayList(arrayList);
-	insertData(arrayList, 54, "Pencil",  1);
-	displayList(arrayList);
-	insertData(arrayList, 120, "Windows",  3);
-	displayList(arrayList);
+
 
 	arrayNode* popedNode = NULL;
 
@@ -67,24 +69,6 @@ int main()
 		popedNode = NULL;
 	}
 	displayList(arrayList);
-
-	popedNode = popData(arrayList, 48, 0);
-	if ( popedNode ) {
-		printString(__FILE__, __func__, __LINE__, "Middle Poped Node Value => Key[%d], Data[%s]", popedNode->key, popedNode->data);
-		free(popedNode);
-		popedNode = NULL;
-	}
-	displayList(arrayList);
-
-	popedNode = NULL;
-	popedNode = popData(arrayList, 28, 0);
-	if ( popedNode ) {
-		printString(__FILE__, __func__, __LINE__, "Middle Poped Node Value => Key[%d], Data[%s]", popedNode->key, popedNode->data);
-		free(popedNode);
-		popedNode = NULL;
-	}
-	displayList(arrayList);
-
 	insertData(arrayList, 456, "Sanbon",  30);
 	displayList(arrayList);
 

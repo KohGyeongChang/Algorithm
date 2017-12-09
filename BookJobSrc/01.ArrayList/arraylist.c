@@ -3,7 +3,6 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdarg.h>
-
 #include "arraylist.h"
 
 int g_listSize;
@@ -89,13 +88,38 @@ int reorderingList(arrayNode** arrayList, int InsertPos)
 	return InsertPos - 1;
 }
 
-bool insertData(arrayNode** arrayList, int Key, char* pData, int InsertPos)
+arrayNode** expandList(arrayNode** arrayList)
+{
+	if ( arrayList == NULL ) {
+		printString(__FILE__, __func__, __LINE__, "ERROR => Input ArrayList NULL");
+		return NULL;
+	}
+
+	arrayNode** pArrayList = NULL;
+	g_listSize *= 2;
+	pArrayList = (arrayNode**)calloc(1, sizeof(arrayNode*) * g_listSize );
+	if ( pArrayList == NULL ) {
+		printString(__FILE__, __func__, __LINE__, "ERROR => Failed To Allocate Memory");
+		return NULL;
+	}
+
+	for( int i = 0; i < g_idxToInsert; ++i) {
+		pArrayList[i] = arrayList[i];
+	}
+
+	free(arrayList);
+	arrayList = NULL;
+
+	return pArrayList;
+}
+
+int insertData(arrayNode** arrayList, int Key, char* pData, int InsertPos)
 {
 	int RetVal = checkValidation(arrayList, InsertPos);
 
 	if ( RetVal != STATUS_OK ) {
 		printString(__FILE__, __func__, __LINE__, "ERROR => checkValidation() NOT STATUS_OK");
-		return false;
+		return RetVal;
 	}
 
 	arrayNode* pNewNode = createArrayNode(Key, pData);
@@ -110,7 +134,7 @@ bool insertData(arrayNode** arrayList, int Key, char* pData, int InsertPos)
 		arrayList[g_idxToInsert++] = pNewNode;
 	}
 
-	return true;
+	return RetVal;
 }
 
 int findNode(arrayNode** arrayList, int Key)
