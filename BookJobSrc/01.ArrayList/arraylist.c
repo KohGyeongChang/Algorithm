@@ -118,7 +118,7 @@ int insertData(arrayNode** arrayList, int Key, char* pData, int InsertPos)
 	int RetVal = checkValidation(arrayList, InsertPos);
 
 	if ( RetVal != STATUS_OK ) {
-		printString(__FILE__, __func__, __LINE__, "ERROR => checkValidation() NOT STATUS_OK");
+		printString(__FILE__, __func__, __LINE__, "ERROR => NOT STATUS_OK");
 		return RetVal;
 	}
 
