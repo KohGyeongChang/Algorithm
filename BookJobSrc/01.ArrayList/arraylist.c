@@ -124,11 +124,13 @@ int insertData(arrayNode** arrayList, int Key, char* pData, int InsertPos)
 
 	arrayNode* pNewNode = createArrayNode(Key, pData);
 
-	if ( InsertPos > 0 && (InsertPos-1) <= g_idxToInsert ) {
+	if ( InsertPos > 0 && (InsertPos-1) < g_idxToInsert ) {
 
 		int index = reorderingList(arrayList, InsertPos);
 		arrayList[index] = pNewNode;
 		g_idxToInsert++;
+
+		printString(__FILE__, __func__, __LINE__, "STATUS=> reorderingList Called : (InsertPos-1)[%d], g_idxToInsert[%d]", InsertPos-1,g_idxToInsert);
 	}
 	else {
 		arrayList[g_idxToInsert++] = pNewNode;

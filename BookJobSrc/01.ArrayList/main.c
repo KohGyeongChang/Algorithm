@@ -37,7 +37,7 @@ int main()
 	insertData(arrayList, 4, "Korea",  1);
 	displayList(arrayList);
 
-	insertData(arrayList, 48, "Book",  1);
+	insertData(arrayList, 48, "Book",  3);
 	displayList(arrayList);
 
 	insertData(arrayList, 28, "Desk",  11);
