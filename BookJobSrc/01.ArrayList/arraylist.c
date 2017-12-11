@@ -207,8 +207,13 @@ arrayNode* popData(arrayNode** arrayList, int Key, int popFlag)
 		}
 		else {
 			popedNode = arrayList[index];
+			/*
 			for( int i  = index + 1; i < g_idxToInsert; ++i) {
 				arrayList[i-1] = arrayList[i];
+			}
+			*/
+			for( int i  = index ; i < g_idxToInsert; ++i) {
+				arrayList[i] = arrayList[i+1];
 			}
 			arrayList[--g_idxToInsert] = NULL;
 		}
