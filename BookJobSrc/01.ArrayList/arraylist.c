@@ -139,7 +139,7 @@ int insertData(arrayNode** arrayList, int Key, char* pData, int InsertPos)
 	return RetVal;
 }
 
-int findNode(arrayNode** arrayList, int Key)
+int findData(arrayNode** arrayList, int Key)
 {
 	int index = -1;
 	for( int i = 0; i < g_idxToInsert; ++i) {
@@ -194,7 +194,7 @@ arrayNode* popData(arrayNode** arrayList, int Key, int popFlag)
 		popedNode = removeTail(arrayList);
 	}
 	else if ( popFlag == 0 ) {
-		int index = findNode(arrayList, Key);
+		int index = findData(arrayList, Key);
 
 		if ( index == 0 ) {
 			popedNode = removeHead(arrayList);
