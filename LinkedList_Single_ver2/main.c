@@ -6,7 +6,7 @@
 
 extern singleLinkedList* initializeSingleLinkedList();
 extern void releaseSingleLinkedList(singleLinkedList*);
-extern int insertData(singleLinkedList*, char* data, int key);
+extern bool insertData(singleLinkedList*, char* data, int key);
 extern bool getData(singleLinkedList*, char* bufString, int key);
 extern singleLinkedList* popData(singleLinkedList*, int key);
 extern void showAllData(singleLinkedList*);

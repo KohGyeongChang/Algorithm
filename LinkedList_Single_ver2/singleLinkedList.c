@@ -47,16 +47,16 @@ void releaseSingleLinkedList(singleLinkedList* pHead)
 }
 
 
-int insertData(singleLinkedList* pHead, char* data, int key)
+bool insertData(singleLinkedList* pHead, char* data, int key)
 {
 	if ( pHead == NULL ) {
-		return -1;
+		return false;
 	}
 
 	singleLinkedList* pNewNode= createNode(data, key);
 	if ( pNewNode == NULL ) {
 		printf("Creaete New NODE FAIL\n");
-		return -1;
+		return false;
 	}
 
 	singleLinkedList* pTmpNode = pHead;
@@ -73,7 +73,7 @@ int insertData(singleLinkedList* pHead, char* data, int key)
 		pTmpNode = pTmpNode->pNextNode;
 	}
 
-	return 0;
+	return true;
 }
 
 
