@@ -14,7 +14,9 @@ int main()
 	printf("Stack Test\n");
 	initializeStack();
 	pushData("Start");
+	showAllData();
 	pushData("Zero");
+	showAllData();
 	pushData("Real");
 	showAllData();
 
