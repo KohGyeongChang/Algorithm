@@ -65,7 +65,7 @@ void releaseNode(doublyLinkedList* pNode)
 	free(pNode);
 }
 
-bool addData(doublyLinkedList* pHead, char* data, int key)
+bool insertData(doublyLinkedList* pHead, char* data, int key)
 {
 	doublyLinkedList* pNewNode= createNode(data, key);
 	if ( pNewNode == NULL ) {
