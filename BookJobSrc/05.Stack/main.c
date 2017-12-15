@@ -1,49 +1,57 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "stack.h"
 
 extern stackNode* initializeStack();
 extern void releaseStack(stackNode*);
-extern int pushData(stackNode*, char* data);
-extern int popData(stackNode*, char* popedString);
+extern bool pushData(stackNode*, int key, char* data);
+extern stackNode* popData(stackNode* );
 extern void showAllData(stackNode*);
 
 int main()
 {
 	printf("Stack Test\n");
 
-	stackNode* pHead = initializeStack();
-	pushData(pHead, "Start");
-	showAllData(pHead);
-	pushData(pHead, "Zero");
-	showAllData(pHead);
-	pushData(pHead, "Real");
-	showAllData(pHead);
+	stackNode* pStack = initializeStack();
+	pushData(pStack, 111, "Start");
+	showAllData(pStack);
 
-	char popString[40] = { 0 };
-	int nRet = -1;
-	nRet = popData(pHead, popString);
-	if( nRet > -1 ) { 
-		printf("Poped String : %s\n", popString);
-	}
+	pushData(pStack, 222, "Zero");
+	showAllData(pStack);
 
-	nRet = popData(pHead, popString);
-	if( nRet > -1 ) { 
-		printf("Poped String : %s\n", popString);
-	}
+	pushData(pStack, 333, "Real");
+	showAllData(pStack);
 
-	nRet = popData(pHead, popString);
-	if( nRet > -1 ) { 
-		printf("Poped String : %s\n", popString);
-	}
+	stackNode* popedNode = NULL;
 
-	nRet = popData(pHead, popString);
-	if( nRet > -1 ) { 
-		printf("Poped String : %s\n", popString);
+	popedNode = popData(pStack);
+	if( popedNode ) { 
+		printf("Poped Node => Key[%d]:Data[%s]\n", popedNode->key, popedNode->data);
 	}
-	showAllData(pHead);
-	releaseStack(pHead);
+	showAllData(pStack);
+
+	popedNode = popData(pStack);
+	if( popedNode ) { 
+		printf("Poped Node => Key[%d]:Data[%s]\n", popedNode->key, popedNode->data);
+	}
+	showAllData(pStack);
+
+	popedNode = popData(pStack);
+	if( popedNode ) { 
+		printf("Poped Node => Key[%d]:Data[%s]\n", popedNode->key, popedNode->data);
+	}
+	showAllData(pStack);
+
+	popedNode = popData(pStack);
+	if( popedNode ) { 
+		printf("Poped Node => Key[%d]:Data[%s]\n", popedNode->key, popedNode->data);
+	}
+	showAllData(pStack);
+
+	showAllData(pStack);
+	releaseStack(pStack);
 
 	return 0;
 }

@@ -2,10 +2,13 @@
 DEBUG = -g -DDEBUGINFO
 CC = gcc-7.2
 CFLAGS = -O2 -Wall $(DEBUG)
-OBJECTS = main.o stack.o 
+OBJECTS = main.o stack.o
 TARGET = testStack
 
 all : $(TARGET) 
+
+StackLib : 
+	cd ./lib;$(MAKE)
 
 $(TARGET): $(OBJECTS)
 	$(CC) -o $(TARGET) $(OBJECTS) 
