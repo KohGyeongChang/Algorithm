@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <unistd.h>
 #include "circularLinkedList.h"
 
 
@@ -40,15 +41,23 @@ circularLinkedList* initializecircularLinkedList()
 
 void releasecircularLinkedList(circularLinkedList* pHead)
 {
-	circularLinkedList* pTmpNode = pHead;	
+	circularLinkedList* pTmpNode = pHead;
 
-	while( pTmpNode ) {
+	int cnt = 0;
+	while( pTmpNode->pNextNode != pHead) {
 		circularLinkedList* pTmpNextNode = NULL;	
 		if ( pTmpNode->pNextNode ) {
 			pTmpNextNode = pTmpNode->pNextNode;
 		}
+		printf("releaseList => Key[%d], Data[%s]\n", pTmpNode->key, pTmpNode->data);
 		free(pTmpNode);
 		pTmpNode = pTmpNextNode;
+	}
+
+	if ( pTmpNode ) {
+		printf("releaseList => Key[%d], Data[%s]\n", pTmpNode->key, pTmpNode->data);
+		free(pTmpNode);
+		pTmpNode = NULL;
 	}
 }
 
@@ -60,7 +69,7 @@ void releaseNode(circularLinkedList* pNode)
 	free(pNode);
 }
 
-bool addData(circularLinkedList* pHead, char* data, int key)
+bool insertData(circularLinkedList* pHead, char* data, int key)
 {
 	circularLinkedList* pNewNode= createNode(data, key);
 	if ( pNewNode == NULL ) {
@@ -84,30 +93,32 @@ bool addData(circularLinkedList* pHead, char* data, int key)
 
 bool getData(circularLinkedList* pHead, char* bufString, int key)
 {
+	bool bRet = false;
 	if ( pHead == NULL ) {
-		return false;
+		return bRet;
 	}
 
-	if ( pHead->pNextNode == NULL) {
+	if ( pHead->pNextNode == pHead) {
 		printf("No Data\n");
-		return false;
+		return bRet;
 	}
 
 	circularLinkedList* pTmpNode = pHead->pNextNode;
-	while( pTmpNode ) {
+	while( pTmpNode != pHead ) {
 
 		if( pTmpNode->key == key ) {
+			bRet = true;
 			strcpy(bufString, pTmpNode->data);
 			break;
 		}
 		pTmpNode = pTmpNode->pNextNode;
 	}
-	return true;
+	return bRet;
 }
 
 circularLinkedList* popData(circularLinkedList* pHead, int key)
 {
-	if ( pHead->pNextNode == NULL) {
+	if ( pHead->pNextNode == pHead) {
 		printf("No Data\n");
 		return NULL;
 	}
@@ -115,7 +126,7 @@ circularLinkedList* popData(circularLinkedList* pHead, int key)
 	circularLinkedList* pTmpNode = pHead;
 	circularLinkedList* pDeletedNode = NULL;
 
-	while( pTmpNode->pNextNode ) {
+	while( pTmpNode->pNextNode != pHead ) {
 
 		if( pTmpNode->pNextNode->key == key ) {
 			pDeletedNode= pTmpNode->pNextNode;
@@ -127,15 +138,14 @@ circularLinkedList* popData(circularLinkedList* pHead, int key)
 	return pDeletedNode;
 }
 
-void showAllData(circularLinkedList* pHead, int nCnt)
+void showAllData(circularLinkedList* pHead)
 {
 	printf("\n");
 
 	circularLinkedList* pTmpNode = pHead->pNextNode;	
 
-	int cnt = nCnt;
-	while( pTmpNode ) {
-		printf("Node Data : [%s]\n", pTmpNode->data);
+	while( pTmpNode != pHead ) {
+		printf("Node Key[%d]:Data[%s]\n", pTmpNode->key, pTmpNode->data);
 		circularLinkedList* pTmpNextNode = NULL;	
 		if ( pTmpNode->pNextNode ) {
 			pTmpNextNode = pTmpNode->pNextNode;
@@ -146,4 +156,22 @@ void showAllData(circularLinkedList* pHead, int nCnt)
 	printf("\n");
 }
 
+void testCircular(circularLinkedList* pHead)
+{
+	printf("\n");
+
+	circularLinkedList* pTmpNode = pHead->pNextNode;	
+
+	while( pTmpNode ) {
+		sleep(1);
+		printf("Node Key[%d]:Data[%s]\n", pTmpNode->key, pTmpNode->data);
+		circularLinkedList* pTmpNextNode = NULL;	
+		if ( pTmpNode->pNextNode ) {
+			pTmpNextNode = pTmpNode->pNextNode;
+		}
+		pTmpNode = pTmpNextNode;
+
+	}
+	printf("\n");
+}
 
