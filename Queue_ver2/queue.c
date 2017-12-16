@@ -33,18 +33,18 @@ queueNode* createTail()
 	return pTail;
 }
 
-int initializequeue(queueNode** pHead, queueNode** pTail)
+bool initializequeue(queueNode** pHead, queueNode** pTail)
 {
 	*pHead = createHead();
 	if ( *pHead == NULL ) {
 		printf("CreateHead FAIL\n"); 
-		return -1;
+		return false;
 	}
 
 	*pTail = createTail();
 	if ( *pTail == NULL ) {
 		printf("CreateTail FAIL\n"); 
-		return -1;
+		return false;
 	}
 
 	(*pHead)->pNextNode = *pTail;
@@ -52,7 +52,7 @@ int initializequeue(queueNode** pHead, queueNode** pTail)
 	(*pTail)->pNextNode = NULL;
 	(*pTail)->pPrevNode = (*pHead);
 
-	return 0;
+	return true;
 }
 
 void releasequeue(queueNode* pHead)
