@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "queue.h"
 
-extern int initializequeue(queueNode**, queueNode**);
+extern bool initializequeue(queueNode**, queueNode**);
 extern void releasequeue(queueNode*);
 extern bool enQueue(queueNode* pTail, int Key, char* data);
 extern queueNode* deQueue(queueNode* pHead, queueNode* pTail);
