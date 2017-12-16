@@ -1,6 +1,6 @@
 .SUFFIXES = .c .o
 DEBUG = -g -DDEBUGINFO
-CC = gcc
+CC = gcc-7.2
 CFLAGS = -O2 -Wall $(DEBUG)
 OBJECTS = main.o queue.o
 TARGET = testQueue

@@ -1,39 +1,58 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "queue.h"
 
-queueNode* createNode(char* data)
+queueNode* createNode(int Key, char* data)
 {
 	queueNode* pNewNode = (queueNode*)calloc(1, sizeof(queueNode));
 	if ( pNewNode == NULL ) {
-		printf("New Node HEAD Memory Allocation FAIL\n");
+		printf("New Node Memory Allocation FAIL\n");
 		return NULL;
 	}
 
+	pNewNode->key = Key;
 	memcpy(pNewNode->data, data, strlen(data) );
+
 	return pNewNode;
 }
 
 queueNode* createHead()
 {
 	// Caller Checks if pointer is NULL
-	queueNode* pHead = createNode("HEAD");
+	queueNode* pHead = createNode(0, "HEAD");
 	return pHead;
 }
 
 
-queueNode* initializequeue()
+queueNode* createTail()
 {
-	queueNode* pHead = createHead();
-	if ( pHead == NULL ) {
+	// Caller Checks if pointer is NULL
+	queueNode* pTail= createNode(0, "TAIL");
+	return pTail;
+}
+
+int initializequeue(queueNode** pHead, queueNode** pTail)
+{
+	*pHead = createHead();
+	if ( *pHead == NULL ) {
 		printf("CreateHead FAIL\n"); 
-		return NULL;
+		return -1;
 	}
 
-	pHead->pNextNode = NULL;
+	*pTail = createTail();
+	if ( *pTail == NULL ) {
+		printf("CreateTail FAIL\n"); 
+		return -1;
+	}
 
-	return pHead;
+	(*pHead)->pNextNode = *pTail;
+	(*pHead)->pPrevNode = NULL;
+	(*pTail)->pNextNode = NULL;
+	(*pTail)->pPrevNode = (*pHead);
+
+	return 0;
 }
 
 void releasequeue(queueNode* pHead)
@@ -55,57 +74,55 @@ void releaseNode(queueNode* pNode)
 	if ( pNode == NULL ) {
 		return;
 	}
+
 	free(pNode);
 }
 
-int isQueueEmpty(queueNode* pHead)
+bool hasQueueData(queueNode* pHead, queueNode* pTail)
 {
-	if ( pHead->pNextNode == NULL) {
-		return 1;
+	if ( pHead->pNextNode == pTail ) {
+		return false;
 	}
 
-	return 0;
+	return true;
 }
 
-int pushData(queueNode* pHead, char* data)
+bool enQueue(queueNode* pTail, int Key, char* data)
 {
-	queueNode* pNewNode= createNode(data);
+	if ( pTail == NULL ) {
+		return false;
+	}
+
+	queueNode* pNewNode= createNode(Key, data);
 	if ( pNewNode == NULL ) {
 		printf("Creaete New NODE FAIL\n");
-		return -1;
+		return false;
 	}
 
-	queueNode* pTmpNode = pHead;
+	pTail->pPrevNode->pNextNode = pNewNode;
+	pNewNode->pNextNode = pTail;
+	pNewNode->pPrevNode = pTail->pPrevNode;
+	pTail->pPrevNode = pNewNode;
 
-	while( 1 ) {
-
-		if ( pTmpNode->pNextNode == NULL) {
-
-			pNewNode->pNextNode = pTmpNode->pNextNode;
-			pTmpNode->pNextNode = pNewNode;;
-			break;
-		}
-		pTmpNode = pTmpNode->pNextNode;
-	}
-
-	return 0;
+	return true;
 
 }
 
-int popData(queueNode* pHead, char* popedString)
+queueNode* deQueue(queueNode* pHead, queueNode* pTail)
 {
-	if ( pHead->pNextNode == NULL) {
-		printf("No Data\n");
-		return -1;
+	if ( pHead == NULL ) {
+		return false;
+	}
+
+	if ( pHead->pNextNode == pTail) {
+		printf("No DATA\n");
+		return false;
 	}
 
 	queueNode* pPopedNode = pHead->pNextNode; 
 	pHead->pNextNode = pPopedNode->pNextNode;
 
-	strcpy(popedString, pPopedNode->data);
-	releaseNode(pPopedNode);
-
-	return 0;
+	return pPopedNode;
 }
 
 void showAllData(queueNode* pHead)

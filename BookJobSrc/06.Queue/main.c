@@ -1,52 +1,88 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "queue.h"
 
-extern queueNode* initializequeue();
-extern void releasequeue(queueNode* );
-extern int pushData(queueNode*, char* data);
-extern int popData(queueNode*, char* popedString);
-extern void showAllData(queueNode*);
+extern int initializequeue(queueNode**, queueNode**);
+extern void releasequeue(queueNode*);
+extern bool enQueue(queueNode* pTail, int Key, char* data);
+extern queueNode* deQueue(queueNode* pHead, queueNode* pTail);
+extern void showAllData(queueNode* pHead);
+extern bool hasQueueData(queueNode*, queueNode*);
 
 int main()
 {
-	printf("Queue Test\n");
+	printf("queue Test\n");
 
-	queueNode* pHead = initializequeue();
+	queueNode* pHead = NULL;
+	queueNode* pTail = NULL;
+
+	initializequeue(&pHead, &pTail);
+
 	showAllData(pHead);
-
-	pushData(pHead, "Start");
-	showAllData(pHead);
-
-	pushData(pHead, "Zero");
-	showAllData(pHead);
-
-	pushData(pHead, "Real");
-	showAllData(pHead);
-
-	char popString[40] = { 0 };
-	int nRet = -1;
-	nRet = popData(pHead, popString);
-	if( nRet > -1 ) { 
-		printf("Poped String : %s\n", popString);
+	if ( hasQueueData(pHead, pTail)) {
+		printf("Queue has Data\n");
+	}
+	else {
+		printf("Queue has NO Data\n");
 	}
 
-	nRet = popData(pHead, popString);
-	if( nRet > -1 ) { 
-		printf("Poped String : %s\n", popString);
-	}
 
-	nRet = popData(pHead, popString);
-	if( nRet > -1 ) { 
-		printf("Poped String : %s\n", popString);
-	}
-
-	nRet = popData(pHead, popString);
-	if( nRet > -1 ) { 
-		printf("Poped String : %s\n", popString);
-	}
+	enQueue(pTail,111, "Start");
 	showAllData(pHead);
+
+	enQueue(pTail,222, "Zero");
+	showAllData(pHead);
+
+	enQueue(pTail, 333, "Real");
+	showAllData(pHead);
+
+	enQueue(pTail, 444, "Jeju");
+	showAllData(pHead);
+
+	if ( hasQueueData(pHead, pTail)) {
+		printf("Queue has Data\n");
+	}
+	else {
+		printf("Queue has NO Data\n");
+	}
+
+	queueNode* popedNode = NULL;
+	popedNode = deQueue(pHead, pTail);
+	if( popedNode ) { 
+		printf("Poped Node Key[%d]:Data[%s]\n", popedNode->key, popedNode->data);
+	}
+
+	popedNode = deQueue(pHead, pTail);
+	if( popedNode ) { 
+		printf("Poped Node Key[%d]:Data[%s]\n", popedNode->key, popedNode->data);
+	}
+
+	popedNode = deQueue(pHead, pTail);
+	if( popedNode ) { 
+		printf("Poped Node Key[%d]:Data[%s]\n", popedNode->key, popedNode->data);
+	}
+
+	popedNode = deQueue(pHead, pTail);
+	if( popedNode ) { 
+		printf("Poped Node Key[%d]:Data[%s]\n", popedNode->key, popedNode->data);
+	}
+
+	popedNode = deQueue(pHead, pTail);
+	if( popedNode ) { 
+		printf("Poped Node Key[%d]:Data[%s]\n", popedNode->key, popedNode->data);
+	}
+
+	showAllData(pHead);
+
+	if ( hasQueueData(pHead, pTail)) {
+		printf("Queue has Data\n");
+	}
+	else {
+		printf("Queue has NO Data\n");
+	}
+
 	releasequeue(pHead);
 
 	return 0;
