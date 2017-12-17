@@ -121,6 +121,7 @@ queueNode* deQueue(queueNode* pHead, queueNode* pTail)
 
 	queueNode* pPopedNode = pHead->pNextNode; 
 	pHead->pNextNode = pPopedNode->pNextNode;
+	pPopedNode->pNextNode->pPrevNode = pHead;
 
 	return pPopedNode;
 }
