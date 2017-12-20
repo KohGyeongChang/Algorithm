@@ -33,7 +33,7 @@ queueNode* createTail()
 	return pTail;
 }
 
-bool initializequeue(queueNode** pHead, queueNode** pTail)
+bool initializeQueue(queueNode** pHead, queueNode** pTail)
 {
 	*pHead = createHead();
 	if ( *pHead == NULL ) {
@@ -55,7 +55,7 @@ bool initializequeue(queueNode** pHead, queueNode** pTail)
 	return true;
 }
 
-void releasequeue(queueNode* pHead)
+void releaseQueue(queueNode* pHead)
 {
 	queueNode* pTmpNode = pHead;	
 

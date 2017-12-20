@@ -4,8 +4,8 @@
 #include <stdbool.h>
 #include "queue.h"
 
-extern bool initializequeue(queueNode**, queueNode**);
-extern void releasequeue(queueNode*);
+extern bool initializeQueue(queueNode**, queueNode**);
+extern void releaseQueue(queueNode*);
 extern bool enQueue(queueNode* pTail, int Key, char* data);
 extern queueNode* deQueue(queueNode* pHead, queueNode* pTail);
 extern void showAllData(queueNode* pHead);
@@ -18,7 +18,7 @@ int main()
 	queueNode* pHead = NULL;
 	queueNode* pTail = NULL;
 
-	initializequeue(&pHead, &pTail);
+	initializeQueue(&pHead, &pTail);
 
 	showAllData(pHead);
 	if ( hasQueueData(pHead, pTail)) {
@@ -83,7 +83,7 @@ int main()
 		printf("Queue has NO Data\n");
 	}
 
-	releasequeue(pHead);
+	releaseQueue(pHead);
 
 	return 0;
 }
