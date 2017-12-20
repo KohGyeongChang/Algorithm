@@ -152,49 +152,42 @@ void traverseTree_PostOrder(treeNode* ptreeNode)
 	stackNode* pStack  = initializeStack();
 
 	treeNode* pTreeNode = ptreeNode;
-	treeNode* pAlreadyPut = NULL;
-	treeNode* pAlreadyVisited = NULL;
+	treeNode* pGone = NULL;
+	bool bHasData = true;
 
-	while ( 1 ) {
-
-		while ( pTreeNode && (pTreeNode != pAlreadyVisited)) {
-		
-			if ( pTreeNode != pAlreadyPut ) {
-				pushData(pStack, pTreeNode);
-			}
-
-			if ( pTreeNode->pRiChild ) {
-				pushData(pStack, pTreeNode->pRiChild);
-			}
-
-			if ( pTreeNode->pLeChild ) {
-				pushData(pStack, pTreeNode->pLeChild);
-			}
-		
-			pAlreadyPut = pTreeNode->pLeChild; 
+	while ( bHasData ) {
+		while ( pTreeNode ) {
+			pushData(pStack, pTreeNode);
 			pTreeNode = pTreeNode->pLeChild;
 		}
 
-		if ( hasStackData(pStack) ) {
-			pTreeNode = popData(pStack);
+		while ( 1 ) { 
+			if ( hasStackData(pStack)) { 
+				pGone = pTreeNode; 
+				pTreeNode = popData(pStack);
 
-			if ( pTreeNode->pLeChild && pTreeNode != pAlreadyVisited) {
-				pushData(pStack, pTreeNode);
+				if ( pTreeNode->pRiChild == NULL) {
+					printf("[%s] -> ", pTreeNode->data);
+				}
+				else {
+					if ( pTreeNode->pRiChild == pGone ) {
+						printf("[%s] -> ", pTreeNode->data);
+					}
+					else {
+						pushData(pStack, pTreeNode);
+						pTreeNode = pTreeNode->pRiChild; // Starting Point Of Sub-Tree
+						break;
+					}
+				}
+				
 			}
-
-			if ( pTreeNode->pRiChild == NULL || pTreeNode->pRiChild == pAlreadyVisited ) {
-				printf("[%s] -> ", pTreeNode->data);
-				pAlreadyVisited = pTreeNode;
+			else {
+				bHasData = false;
+				break;
 			}
-
-
-		}
-		else {
-			break;
 		}
 
 	}
-
 
 
    printf("\n\n");
