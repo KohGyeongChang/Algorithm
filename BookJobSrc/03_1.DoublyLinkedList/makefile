@@ -1,0 +1,23 @@
+DEBUG = -g -DDEBUGINFO
+CC = gcc
+CFLAGS = -O2 -Wall $(DEBUG)
+OBJECTS = main.o doublyLinkedList.o
+EXE = testDoublyLinkedList
+
+all : $(EXE)
+
+main.o:main.c
+	$(CC) $(CFLAGS) -c main.c
+
+doublyLinkedList.o:doublyLinkedList.c
+	$(CC) $(CFLAGS) -c doublyLinkedList.c
+
+$(EXE): $(OBJECTS)
+	$(CC) $(OBJECTS) -o $(EXE) 
+
+clean:
+	rm -f *.o $(EXE) 
+
+run:
+	./$(EXE)
+
