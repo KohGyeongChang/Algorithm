@@ -2,7 +2,7 @@ DEBUG = -g -DDEBUGINFO
 CC = gcc
 CFLAGS = -O2 -Wall $(DEBUG)
 OBJECTS = main.o search_binary.o
-EXE = testDoublyLinkedList
+EXE = testSearchBinary
 
 all : $(EXE)
 
