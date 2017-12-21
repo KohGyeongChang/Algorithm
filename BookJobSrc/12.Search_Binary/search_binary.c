@@ -65,7 +65,7 @@ void releaseNode(doublyLinkedList* pNode)
 	free(pNode);
 }
 
-bool addData(doublyLinkedList* pHead, char* data, int key)
+bool insertData(doublyLinkedList* pHead, char* data, int key)
 {
 	doublyLinkedList* pNewNode= createNode(data, key);
 	if ( pNewNode == NULL ) {
@@ -82,21 +82,7 @@ bool addData(doublyLinkedList* pHead, char* data, int key)
 
 	doublyLinkedList* pTmpNode = pHead->pNextNode;
 
-	while( 1 ) {
-		if ( pTmpNode->pNextNode == NULL) {
-			if ( pNewNode->key < pTmpNode->key ) {
-				pNewNode->pNextNode = pTmpNode;
-				pNewNode->pPrevNode = pTmpNode->pPrevNode;
-				pTmpNode->pPrevNode->pNextNode = pNewNode;
-				break;
-			}
-			else {
-				pNewNode->pNextNode = pTmpNode->pNextNode;
-				pNewNode->pPrevNode = pTmpNode;
-				pTmpNode->pNextNode = pNewNode;
-				break;
-			}
-		}
+	while( pTmpNode ) {
 
 		if ( pNewNode->key < pTmpNode->key ) {
 			pNewNode->pNextNode = pTmpNode;
@@ -104,46 +90,27 @@ bool addData(doublyLinkedList* pHead, char* data, int key)
 			pTmpNode->pPrevNode->pNextNode = pNewNode;
 			break;	
 		}
-
-		if ( pNewNode->key >= pTmpNode->key && pNewNode->key < pTmpNode->pNextNode->key) {
-			pNewNode->pNextNode = pTmpNode->pNextNode;
-			pTmpNode->pNextNode->pPrevNode = pNewNode;
-			pNewNode->pPrevNode = pTmpNode;
-			pTmpNode->pNextNode = pNewNode;
-			break;	
-		}
-
-		pTmpNode = pTmpNode->pNextNode;
-	}
-
-	return true;
-}
-
-/*
-bool addData(doublyLinkedList* pHead, char* data, int key)
-{
-	doublyLinkedList* pNewNode= createNode(data, key);
-	if ( pNewNode == NULL ) {
-		printf("Creaete New NODE FAIL\n");
-		return false;
-	}
-
-	doublyLinkedList* pTmpNode = pHead;
-
-	while( 1 ) {
-
-		if ( pTmpNode->pNextNode == NULL) {
-			pNewNode->pNextNode = pTmpNode->pNextNode;
-			pNewNode->pPrevNode = pTmpNode;
-			pTmpNode->pNextNode = pNewNode;
-			break;
+		else {
+			if ( pTmpNode->pNextNode == NULL) {
+				pNewNode->pNextNode = pTmpNode->pNextNode;
+				pNewNode->pPrevNode = pTmpNode;
+				pTmpNode->pNextNode = pNewNode;
+				break;
+			}
+			else {
+				if ( pNewNode->key < pTmpNode->pNextNode->key) {
+					pNewNode->pNextNode = pTmpNode->pNextNode;
+					pTmpNode->pNextNode->pPrevNode = pNewNode;
+					pNewNode->pPrevNode = pTmpNode;
+					pTmpNode->pNextNode = pNewNode;
+					break;
+				}
+			}
 		}
 		pTmpNode = pTmpNode->pNextNode;
 	}
-
 	return true;
 }
-*/
 
 bool getData(doublyLinkedList* pHead, char* bufString, int key)
 {

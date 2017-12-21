@@ -6,7 +6,7 @@
 
 extern doublyLinkedList* initializeDoublyLinkedList();
 extern void releasedoublyLinkedList(doublyLinkedList*);
-extern bool addData(doublyLinkedList*, char* data, int key);
+extern bool insertData(doublyLinkedList*, char* data, int key);
 extern bool getData(doublyLinkedList*, char* bufString, int key);
 extern doublyLinkedList* popData(doublyLinkedList*, int key);
 extern void showAllData(doublyLinkedList*);
@@ -16,15 +16,18 @@ int main()
 {
 	printf("Binary Search Test\n");
 	doublyLinkedList* pHead = initializeDoublyLinkedList();
-	addData(pHead, "home", 999);
-	addData(pHead, "Zero", 222);
-	addData(pHead, "appl", 444);
-	addData(pHead, "peac", 555);
-	addData(pHead, "Star", 111);
-	addData(pHead, "pear", 666);
-	addData(pHead, "book", 777);
-	addData(pHead, "sanb", 333);
-	addData(pHead, "mone", 888);
+	insertData(pHead, "home", 999);
+	insertData(pHead, "Zero", 222);
+	insertData(pHead, "appl", 444);
+	insertData(pHead, "peac", 555);
+	insertData(pHead, "Star", 111);
+	insertData(pHead, "cups", 1110);
+	insertData(pHead, "Des2", 2111);
+	insertData(pHead, "pear", 666);
+	insertData(pHead, "book", 777);
+	insertData(pHead, "sanb", 333);
+	insertData(pHead, "mone", 888);
+	insertData(pHead, "Des1", 2111);
 	showAllData(pHead);
 
 	/*
