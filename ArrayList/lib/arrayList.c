@@ -85,6 +85,7 @@ bool insertNode(listMgr* ListMgr, int Key, char* pData, int InsertFlag, int Inse
 	return true;
 }
 
+
 int findNode(listMgr* ListMgr, int Key)
 {
 	if ( ListMgr == NULL ) {
