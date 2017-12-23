@@ -197,6 +197,7 @@ treeNode* search(treeNode* pTreeNode, int key)
 	return pFoundNode;
 }
 
+
 treeNode* findParentNode(treeNode* pTreeNode, int Key)
 {
 	if ( pTreeNode == NULL ) {
@@ -204,44 +205,22 @@ treeNode* findParentNode(treeNode* pTreeNode, int Key)
 	}
 
 	treeNode* pFoundNode 	= pTreeNode;
-	treeNode* pParentNode	= NULL;
+	treeNode* pParentNode	= pTreeNode;
 
 	while ( pFoundNode ) {
-		pParentNode = pFoundNode;
 		if ( pFoundNode->key == Key ) {
 			break;
 		}
 		else if ( pFoundNode->key < Key ) {
+			pParentNode = pFoundNode;
 			pFoundNode = pFoundNode->pRiChild;
 		}
 		else if ( pFoundNode->key > Key ) {
+			pParentNode = pFoundNode;
 			pFoundNode = pFoundNode->pLeChild;
 		}
 	}
 	return pParentNode;
-}
-
-treeNode* findNode(treeNode* pTreeNode, int Key)
-{
-	if ( pTreeNode == NULL ) {
-		return NULL;
-	}
-
-	treeNode* pFoundNode	= NULL;
-	treeNode* pParentNode	= findParentNode(pTreeNode, Key); 
-
-	if ( pParentNode->pLeChild->key == Key ) {
-		pFoundNode = pParentNode->pLeChild;
-	}
-	else if ( pParentNode->pRiChild->key == Key ) {
-		pFoundNode = pParentNode->pRiChild;
-	}
-	else {
-		pFoundNode = NULL;
-	}
-
-	return pFoundNode;
-
 }
 
 void insert(treeNode* pTreeNode, int Key, char* pData)
@@ -262,16 +241,35 @@ void insert(treeNode* pTreeNode, int Key, char* pData)
 	}
 }
 
-
-int checkNumOfChild(treeNode* pTreeNode, int Key)
+treeNode* findNode(treeNode* pTreeNode, int Key)
 {
-	treeNode* pFoundNode = findNode(pTreeNode, Key);
+	if ( pTreeNode == NULL ) {
+		return NULL;
+	}
 
+	treeNode* pFoundNode	= NULL;
+	treeNode* pParentNode	= findParentNode(pTreeNode, Key); 
+
+	if ( pParentNode->pLeChild->key == Key ) {
+		pFoundNode = pParentNode->pLeChild;
+		printf("findNode() => Parent Key[%d], Found Left Key[%d]\n", pParentNode->key, pFoundNode->key);
+	}
+	else if ( pParentNode->pRiChild->key == Key ) {
+		pFoundNode = pParentNode->pRiChild;
+		printf("findNode() => Parent Key[%d], Found Right Key[%d]\n", pParentNode->key, pFoundNode->key);
+	}
+	else {
+		printf("findNode() => Key[%d] NULL\n", Key); 
+		pFoundNode = NULL;
+	}
+	return pFoundNode;
+}
+
+int checkNumOfChild(treeNode* pFoundNode, int Key)
+{
 	if ( pFoundNode == NULL ) {
 		return -1;
 	}
-
-	printf("checkNumOfChild() => Node Found Key[%d]:Data[%s]\n", pFoundNode->key, pFoundNode->data);
 
 	if ( pFoundNode->pLeChild == NULL && pFoundNode->pRiChild == NULL ) {
 		return 0;
@@ -329,7 +327,6 @@ void deleteTwo(treeNode* pTreeNode, treeNode* pParentNode, treeNode* pFoundNode)
 	if ( pFoundNode == NULL ) {
 		return;
 	}
-
 	treeNode* pBridge = pFoundNode->pLeChild;
 	treeNode* pTmp = pBridge->pRiChild;
 	treeNode* pReplaceNode = NULL;
@@ -338,7 +335,6 @@ void deleteTwo(treeNode* pTreeNode, treeNode* pParentNode, treeNode* pFoundNode)
 		pReplaceNode = pTmp;
 		pTmp = pTmp->pRiChild;
 	}
-
 	pBridge->pRiChild = pReplaceNode->pLeChild;
 	pReplaceNode->pLeChild = pFoundNode->pLeChild;
 	pReplaceNode->pRiChild = pFoundNode->pRiChild;
@@ -374,11 +370,11 @@ void delete(treeNode* pTreeNode, int Key)
 	treeNode* pParentNode = findParentNode(pTreeNode, Key); 
 	treeNode* pFoundNode = findNode(pTreeNode, Key);
 	if ( pFoundNode == NULL ) {
+		printf("delete() => Key[%d] NULL\n", Key); 
 		return;
 	}
-
 	int NumOfChild = checkNumOfChild(pFoundNode, Key); 
-
+	printf("delete() => checkNumOfChild() => Node Found Key[%d]:Data[%s]\n", pFoundNode->key, pFoundNode->data);
 	deleteNode(pTreeNode, pParentNode, pFoundNode, NumOfChild);
 }
 

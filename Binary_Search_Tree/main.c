@@ -34,12 +34,15 @@ int main()
 		printf("FAIL:Found Node \n");
 	}
 
+	/*
 	insert(pRoot, 45,"M");
 	traverseTree_InOrder(pRoot);
 
 	insert(pRoot, 65,"N");
 	traverseTree_InOrder(pRoot);
+	*/
 
+	printf("Trying To Delete '80'\n"); 
 	delete(pRoot, 80);
 	traverseTree_InOrder(pRoot);
 
