@@ -7,7 +7,7 @@
 extern void mergeSort(int [], int);
 extern void displayList(int [], int);
 
-#define LIST_SIZE 20
+#define LIST_SIZE 27
  
 bool checkSameValue(int inputList[], int listSize, int inputValue)
 {
