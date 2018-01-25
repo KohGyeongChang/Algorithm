@@ -9,13 +9,17 @@ void quickSort(int inputList[], int inputSize)
 	if ( inputSize <= 1 ) return;
 
 	int pivot = inputList[ inputSize - 1 ];
-	int start = -1;;
+	int start = 0;;
 	int end	= inputSize - 1;
 	int tmp;
 
 	while ( 1 ) {
-		while ( inputList[ ++start ] < pivot );
-		while ( inputList[ --end ] > pivot ) ;
+		while ( inputList[ start ] < pivot && start < end ) {
+			start++;
+		}
+		while ( inputList[ end ] >= pivot && start < end ) {
+			end--;
+		}
 
 		if ( start >= end ) break;
 
@@ -23,7 +27,7 @@ void quickSort(int inputList[], int inputSize)
 		inputList[ start ] = inputList[ end ];
 		inputList[ end ] = tmp;
 
-		displayList(inputList, inputSize);
+//		displayList(inputList, inputSize);
 	}
 
 	tmp = inputList[ start ];
